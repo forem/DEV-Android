@@ -12,7 +12,7 @@ https://signalvnoise.com/posts/3766-hybrid-how-we-took-basecamp-multi-platform-w
 
 https://www.youtube.com/watch?v=SWEts0rlezA
 
-Our app doesn't have the exact same needs that they do, **_and we don't use Turbolinks in our web app_**, so we can't just copy their approach full-on, but I still think this jives for now.
+Our app doesn't have the exact same needs that they do, **_and we don't use Turbolinks in our web app_**, so we can't just copy their approach full-on, but I still think this jives for now. To be clear: I'm not sure whether we use Turbolinks native or not, but the part I do agree with is using web views and native nav etc. where possible to start, and thene evolving as is natural.
 
 By leveraging web views as much as possible, I think we can make this all pretty awesome and sync up with our web dev work pretty smoothly. And where it makes sense, we can re-implement certain things fully native, or build entirely native features. Life's a journey, not a destination.
 
