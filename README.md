@@ -1,4 +1,4 @@
-# DEV iOS
+# DEV Android
 
 This is the repo for the [dev.to](/) Android app. There is nothing here, but with your help, maybe we can get this up and running soon! Thing should relate ideologically to the concepts we are building [with the iOS app](https://github.com/thepracticaldev/DEV-ios).
 
