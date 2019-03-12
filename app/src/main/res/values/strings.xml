@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DEV-Android</string>
+    <string name="main_url">https://dev.to</string>
 </resources>
