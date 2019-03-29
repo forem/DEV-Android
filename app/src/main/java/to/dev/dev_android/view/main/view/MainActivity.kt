@@ -1,4 +1,4 @@
-package to.dev.dev_android.view
+package to.dev.dev_android.view.main.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
