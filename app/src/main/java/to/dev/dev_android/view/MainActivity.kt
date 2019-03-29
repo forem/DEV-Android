@@ -1,10 +1,10 @@
-package to.dev.devto.android.ui.main.view
+package to.dev.dev_android.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import to.dev.devto.android.R
-import to.dev.devto.android.base.activity.BaseActivity
-import to.dev.devto.android.databinding.ActivityMainBinding
+import to.dev.dev_android.R
+import to.dev.dev_android.base.activity.BaseActivity
+import to.dev.dev_android.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 

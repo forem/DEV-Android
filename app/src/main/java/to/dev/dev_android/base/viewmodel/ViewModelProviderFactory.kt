@@ -1,4 +1,4 @@
-package to.dev.devto.android.base.viewmodel
+package to.dev.dev_android.base.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

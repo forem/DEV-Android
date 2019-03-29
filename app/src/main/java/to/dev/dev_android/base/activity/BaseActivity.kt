@@ -1,4 +1,4 @@
-package to.dev.devto.android.base.activity
+package to.dev.dev_android.base.activity
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding

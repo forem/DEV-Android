@@ -1,4 +1,4 @@
-package to.dev.devto.android.base.navigator
+package to.dev.dev_android.base.navigator
 
 abstract class BaseNavigatorImpl: BaseNavigator {
 
