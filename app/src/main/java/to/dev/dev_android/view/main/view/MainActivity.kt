@@ -1,6 +1,8 @@
 package to.dev.dev_android.view.main.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import to.dev.dev_android.R
 import to.dev.dev_android.base.activity.BaseActivity
@@ -16,12 +18,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setWebViewSettings()
         navigateToHome()
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val appLinkAction = intent.action
+        val appLinkData: Uri? = intent.data
+        if (appLinkData != null) {
+            binding.webView.loadUrl(appLinkData.toString())
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setWebViewSettings() {
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
+        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity)
     }
 
     private fun navigateToHome() {
