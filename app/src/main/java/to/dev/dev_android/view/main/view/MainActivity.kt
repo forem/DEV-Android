@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setWebViewSettings() {
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
-        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity)
+        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
     }
 
     private fun navigateToHome() {

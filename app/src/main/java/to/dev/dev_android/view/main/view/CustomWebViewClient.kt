@@ -7,8 +7,16 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.support.v4.content.ContextCompat.startActivity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.view.View
+import to.dev.dev_android.databinding.ActivityMainBinding
 
-class CustomWebViewClient(val context: Context) : WebViewClient() {
+class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding) : WebViewClient() {
+    override fun onPageFinished(view: WebView, url: String?) {
+        binding.splash.visibility = View.GONE
+        view.visibility = View.VISIBLE
+        super.onPageFinished(view, url)
+    }
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
         if (url.contains("://dev.to")) {
             return false;
