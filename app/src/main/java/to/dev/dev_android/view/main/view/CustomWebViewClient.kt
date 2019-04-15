@@ -8,8 +8,6 @@ import android.webkit.WebViewClient
 import android.support.v4.content.ContextCompat.startActivity
 import android.content.Intent
 
-
-
 class CustomWebViewClient(val context: Context) : WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
         if (url.contains("://dev.to")) {
