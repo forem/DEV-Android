@@ -1,5 +1,3 @@
 package com.example.data
 
-class DataRepository {
-
-}
+class DataRepository

@@ -17,9 +17,10 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
         view.visibility = View.VISIBLE
         super.onPageFinished(view, url)
     }
+
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
         if (url.contains("://dev.to")) {
-            return false;
+            return false
         } else {
             if(url.contains("api.twitter.com/oauth") or url.contains("github.com/login")) {
                 openBrowser(url)
@@ -29,7 +30,7 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
             builder.setToolbarColor(-0x1000000)
             val customTabsIntent = builder.build()
             customTabsIntent.launchUrl(context, Uri.parse(url))
-            return true;
+            return true
         }
 
     }
