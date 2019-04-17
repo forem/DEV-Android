@@ -27,7 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun handleIntent(intent: Intent) {
-        val appLinkAction = intent.action
         val appLinkData: Uri? = intent.data
         if (appLinkData != null) {
             binding.webView.loadUrl(appLinkData.toString())
