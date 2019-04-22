@@ -1,5 +1,8 @@
 # DEV Android 💝
 
+<a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/maintainability"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/maintainability" /></a>
+<a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/test_coverage" /></a>
+
 This is the repo for the dev.to Android app. 
 
 # Status: 
