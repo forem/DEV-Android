@@ -1,6 +1,6 @@
 <div align="center">
   <br>
-  <img height=100px src="https://lh3.googleusercontent.com/g7lQCU30H5iAmo2CoBijCmuBF0nE4rZrc9wDBxgOV0lX0aGBb8RD95UvZixfUIwCVA=s180-rw"/><img height=50px src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg"/><img height=100px src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"/>
+  <img height=100px src="https://lh3.googleusercontent.com/g7lQCU30H5iAmo2CoBijCmuBF0nE4rZrc9wDBxgOV0lX0aGBb8RD95UvZixfUIwCVA=s180-rw"/><img height=50px padding=24px src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg"/><img height=100px src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"/>
   
   <h1>DEV Android</h1>
   <strong></strong>
