@@ -1,11 +1,6 @@
-<div align="center">
-  <br>
-  <img height=100px src="https://lh3.googleusercontent.com/g7lQCU30H5iAmo2CoBijCmuBF0nE4rZrc9wDBxgOV0lX0aGBb8RD95UvZixfUIwCVA=s180-rw"/><img height=50px padding=24px src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg"/><img height=100px src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"/>
-  
-  <h1>DEV Android</h1>
-  <strong></strong>
-</div>
+<img height=100px src="https://lh3.googleusercontent.com/g7lQCU30H5iAmo2CoBijCmuBF0nE4rZrc9wDBxgOV0lX0aGBb8RD95UvZixfUIwCVA=s180-rw"/><img height=100px src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"/>
 
+# DEV Android 💝
 <a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/maintainability"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/maintainability" /></a>
 <a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/test_coverage" /></a>
 
@@ -14,7 +9,7 @@ This is the repo for the dev.to Android app.
 <a href='https://play.google.com/store/apps/details?id=to.dev.dev_android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width=150px alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 
-# Design ethose
+## Design ethos
 
 We will grow to include more native code over time, but for now we are taking the approach of _native shell/web views_. This approach lost favor early in iOS days, but I believe it is a very valid approach these days. It is inspired by how Basecamp does things. Our tech stack is a bit different, but the ideas are the same. 
 
@@ -27,3 +22,37 @@ https://signalvnoise.com/posts/3766-hybrid-how-we-took-basecamp-multi-platform-w
 https://www.youtube.com/watch?v=SWEts0rlezA
 
 By leveraging webviews as much as possible, I think we can make this all pretty awesome and sync up with our web dev work pretty smoothly. And where it makes sense, we can re-implement certain things fully native, or build entirely native features. Life's a journey, not a destination.
+
+## Contributions
+
+We expect contributors to abide by our underlying code of conduct. All conversations and discussions on GitHub (issues, pull requests) and across dev.to must be respectful and harassment-free.
+
+### How to contribute
+
+1.  Fork the project & clone locally.
+1.  Create a branch, naming it either a feature or bug: `git checkout -b feature/that-new-feature` or `bug/fixing-that-bug`
+1.  Code and commit your changes. Bonus points if you write a [good commit message](https://chris.beams.io/posts/git-commit/): `git commit -m 'Add some feature'`
+1.  Push to the branch: `git push origin feature/that-new-feature`
+1.  Create a pull request for your branch 🎉
+
+## License
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Please see the [LICENSE](./LICENSE) file in our repository for the full text.
+
+Like many open source projects, we require that contributors provide us with a Contributor License Agreement (CLA). By submitting code to the DEV project, you are granting us a right to use that code under the terms of the CLA.
+
+Our version of the CLA was adapted from the Microsoft Contributor License Agreement, which they generously made available to the public domain under Creative Commons CC0 1.0 Universal.
+
+Any questions, please refer to our [license FAQ](http://docs.dev.to/license-faq/) doc or email yo@dev.to
+
+<br/>
+
+<p align="center">
+  <img
+    alt="sloan"
+    width=250px
+    src="https://thepracticaldev.s3.amazonaws.com/uploads/user/profile_image/31047/af153cd6-9994-4a68-83f4-8ddf3e13f0bf.jpg"
+  />
+  <br/>
+  <strong>Happy Coding</strong> ❤️
+</p>
