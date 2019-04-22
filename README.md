@@ -1,11 +1,17 @@
-# DEV Android 💝
+<div align="center">
+  <br>
+  <img height=100px src="https://lh3.googleusercontent.com/g7lQCU30H5iAmo2CoBijCmuBF0nE4rZrc9wDBxgOV0lX0aGBb8RD95UvZixfUIwCVA=s180-rw"/>   <img height=100px src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg"/>
+  <h1>DEV Android</h1>
+  <strong>The android app</strong>
+</div>
 
 <a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/maintainability"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/maintainability" /></a>
 <a href="https://codeclimate.com/github/thepracticaldev/DEV-Android/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ad31b8a267a37475e14c/test_coverage" /></a>
 
 This is the repo for the dev.to Android app. 
 
-<a href='https://play.google.com/store/apps/details?id=to.dev.dev_android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href='https://play.google.com/store/apps/details?id=to.dev.dev_android&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width=150px alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
 
 # Design ethose
 
