@@ -1,6 +1,10 @@
-# DEV Android 💖
+# DEV Android 💝
 
-Progress is a little behind [the iOS app](https://github.com/thepracticaldev/DEV-ios), and we haven't really given either our full focus, but we suspect things will come together quickly once we do. All issues are welcome to help move the project along via discussion.
+This is the repo for the dev.to Android app. 
+
+# Status: 
+
+Released first version: https://play.google.com/store/apps/details?id=to.dev.dev_android
 
 # Design ethose
 
