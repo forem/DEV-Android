@@ -2,10 +2,10 @@ package to.dev.dev_android.view.main.view
 
 import android.content.Context
 import android.net.Uri
-import android.support.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.CustomTabsIntent
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.support.v4.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.view.View
