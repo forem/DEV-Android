@@ -1,7 +1,7 @@
 package to.dev.dev_android.base.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 abstract class ViewModelProviderFactory<V: BaseViewModel> : ViewModelProvider.Factory {
 
