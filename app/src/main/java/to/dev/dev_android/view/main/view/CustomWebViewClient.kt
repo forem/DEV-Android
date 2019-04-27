@@ -8,7 +8,10 @@ import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.view.View
+import android.webkit.CookieManager
+import android.webkit.CookieSyncManager
 import to.dev.dev_android.databinding.ActivityMainBinding
 
 class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding) : WebViewClient() {
@@ -19,12 +22,21 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
     }
 
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        if(view.originalUrl == "https://dev.to/signout_confirm" && url == "https://dev.to/") {
+            view.clearCache(true)
+            view.clearFormData()
+            view.clearHistory()
+            when (Build.VERSION.SDK_INT) {
+                in Int.MIN_VALUE..20 -> CookieManager.getInstance().removeAllCookie();
+                else -> CookieManager.getInstance().removeAllCookies(null);
+            }
+        }
+
         if (url.contains("://dev.to")) {
             return false
         } else {
-            if(url.contains("api.twitter.com/oauth") or url.contains("github.com/login")) {
-                openBrowser(url)
-                return true
+            if(url.contains("api.twitter.com/oauth") || url.contains("api.twitter.com/account/login_verification") || url.contains("github.com/login")) {
+                return false
             }
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(-0x1000000)
