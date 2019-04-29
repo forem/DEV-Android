@@ -27,15 +27,18 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
             view.clearFormData()
             view.clearHistory()
             when (Build.VERSION.SDK_INT) {
-                in Int.MIN_VALUE..20 -> CookieManager.getInstance().removeAllCookie();
-                else -> CookieManager.getInstance().removeAllCookies(null);
+                in Int.MIN_VALUE..20 -> CookieManager.getInstance().removeAllCookie()
+                else -> CookieManager.getInstance().removeAllCookies(null)
             }
         }
 
         if (url.contains("://dev.to")) {
             return false
         } else {
-            if(url.contains("api.twitter.com/oauth") || url.contains("api.twitter.com/account/login_verification") || url.contains("github.com/login")) {
+            if(url.contains("api.twitter.com/oauth") ||
+                url.contains("api.twitter.com/account/login_verification") ||
+                url.contains("github.com/login") ||
+                url.contains("github.com/sessions/")) {
                 return false
             }
             val builder = CustomTabsIntent.Builder()
