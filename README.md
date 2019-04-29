@@ -17,6 +17,10 @@ By leveraging webviews as much as possible, we can smoothly sync up with our web
 
 We expect contributors to abide by our underlying [code of conduct](./CODE_OF_CONDUCT.md). All conversations and discussions on GitHub (issues, pull requests) and across dev.to must be respectful and harassment-free.
 
+### System Requirements
+
+You will need to have Android Studio 3.4 or up installed.
+
 ### How to contribute
 
 1.  Fork the project & clone locally.
