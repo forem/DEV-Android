@@ -1,20 +1,17 @@
 package to.dev.dev_android.view.main.view
 
 import android.content.Context
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.webkit.CookieManager
-import android.webkit.CookieSyncManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.browser.customtabs.CustomTabsIntent
 import to.dev.dev_android.databinding.ActivityMainBinding
 
-class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding) : WebViewClient() {
+class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
     override fun onPageFinished(view: WebView, url: String?) {
         binding.splash.visibility = View.GONE
         view.visibility = View.VISIBLE
@@ -22,23 +19,25 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
     }
 
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-        if(view.originalUrl == "https://dev.to/signout_confirm" && url == "https://dev.to/") {
+        if (view.originalUrl == "https://dev.to/signout_confirm" && url == "https://dev.to/") {
             view.clearCache(true)
             view.clearFormData()
             view.clearHistory()
-            when (Build.VERSION.SDK_INT) {
-                in Int.MIN_VALUE..20 -> CookieManager.getInstance().removeAllCookie()
-                else -> CookieManager.getInstance().removeAllCookies(null)
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                CookieManager.getInstance().removeAllCookie()
+            } else {
+                CookieManager.getInstance().removeAllCookies(null)
             }
         }
 
         if (url.contains("://dev.to")) {
             return false
         } else {
-            if(url.contains("api.twitter.com/oauth") ||
+            if (url.contains("api.twitter.com/oauth") ||
                 url.contains("api.twitter.com/account/login_verification") ||
                 url.contains("github.com/login") ||
-                url.contains("github.com/sessions/")) {
+                url.contains("github.com/sessions/")
+            ) {
                 return false
             }
             val builder = CustomTabsIntent.Builder()
