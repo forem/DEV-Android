@@ -12,6 +12,13 @@ import androidx.browser.customtabs.CustomTabsIntent
 import to.dev.dev_android.databinding.ActivityMainBinding
 
 class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
+
+    private val overrideUrlList = listOf(
+        "api.twitter.com/oauth",
+        "api.twitter.com/account/login_verification",
+        "github.com/login",
+        "github.com/sessions/"
+    )
     override fun onPageFinished(view: WebView, url: String?) {
         binding.splash.visibility = View.GONE
         view.visibility = View.VISIBLE
@@ -33,12 +40,10 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
         if (url.contains("://dev.to")) {
             return false
         } else {
-            if (url.contains("api.twitter.com/oauth") ||
-                url.contains("api.twitter.com/account/login_verification") ||
-                url.contains("github.com/login") ||
-                url.contains("github.com/sessions/")
-            ) {
-                return false
+            for (i in 0 until overrideUrlList.size) {
+                if (url.contains(overrideUrlList[i])) {
+                    return false
+                }
             }
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(-0x1000000)
