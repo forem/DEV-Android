@@ -17,11 +17,11 @@ class CustomWebChromeClient(val context: Context,
         filePathCallback: ValueCallback<Array<Uri>>?,
         fileChooserParams: FileChooserParams?
     ): Boolean {
-        listener.launchGallery()
-        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams)
+        listener.launchGallery(filePathCallback)
+        return true
     }
 
     interface CustomListener {
-        fun launchGallery()
+        fun launchGallery(filePathCallback: ValueCallback<Array<Uri>>?)
     }
 }

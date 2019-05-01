@@ -2,19 +2,18 @@ package to.dev.dev_android.view.main.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
+import android.webkit.ValueCallback
 import androidx.core.app.ActivityCompat
 import to.dev.dev_android.R
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
+
+    private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
 
     override fun layout(): Int {
         return R.layout.activity_main
@@ -59,15 +58,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         }
     }
 
-    override fun launchGallery() {
-        val intent = Intent()
+    override fun launchGallery(filePathCallback: ValueCallback<Array<Uri>>?) {
+        mFilePathCallback = filePathCallback
+
+        val galleryIntent = Intent()
         // Show only images, no videos or anything else
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_PICK
+        galleryIntent.type = "image/*"
+        galleryIntent.action = Intent.ACTION_PICK
+        
         // Always show the chooser (if there are multiple options available)
         ActivityCompat.startActivityForResult(
             this,
-            Intent.createChooser(intent, "Select Picture"),
+            Intent.createChooser(galleryIntent, "Select Picture"),
             PIC_CHOOSER_REQUEST,
             null    // No additional data
         )
@@ -77,30 +79,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PIC_CHOOSER_REQUEST) {
                 if (data != null) {
-                    Log.d("MainActivity", "onActivityResult (line 76): data: ${data.data}")
-                    val realPathFromUri = getRealPathFromUri(this, data.data)
-                    val picPath = realPathFromUri.split("/").last()
-                    Log.d("MainActivity", "onActivityResult (line 87): picPath: $picPath" )
-                    Log.d("MainActivity", "onActivityResult (line 82): $realPathFromUri")
-                    // TODO: Access the file
-                    // TODO: Make the API Call??
+                    mFilePathCallback?.onReceiveValue(arrayOf(data.data))
+                    mFilePathCallback = null
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun getRealPathFromUri(context: Context, contentUri: Uri): String {
-        var cursor: Cursor? = null
-        try {
-            val projection = arrayOf(MediaStore.Images.Media.DATA)
-            cursor = context.contentResolver.query(contentUri, projection, null, null, null)
-            val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            return cursor.getString(columnIndex)
-        } finally {
-            cursor?.close()
-        }
     }
 
     companion object {
