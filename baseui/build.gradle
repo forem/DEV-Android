@@ -19,9 +19,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue("string", "baseUrl", "\"https://dev.to\"")
+            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue("string", "baseUrl", "\"https://dev.to\"")
+            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
         }
     }
 
