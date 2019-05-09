@@ -1,17 +1,24 @@
 package to.dev.dev_android.view.main.view
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
+import android.os.Build
+import android.view.View
+import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.core.content.ContextCompat.startActivity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.view.View
+import androidx.browser.customtabs.CustomTabsIntent
 import to.dev.dev_android.databinding.ActivityMainBinding
 
-class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding) : WebViewClient() {
+class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
+
+    private val overrideUrlList = listOf(
+        "api.twitter.com/oauth",
+        "api.twitter.com/account/login_verification",
+        "github.com/login",
+        "github.com/sessions/"
+    )
     override fun onPageFinished(view: WebView, url: String?) {
         binding.splash.visibility = View.GONE
         view.visibility = View.VISIBLE
@@ -19,12 +26,24 @@ class CustomWebViewClient(val context: Context, val binding: ActivityMainBinding
     }
 
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        if (view.originalUrl == "https://dev.to/signout_confirm" && url == "https://dev.to/") {
+            view.clearCache(true)
+            view.clearFormData()
+            view.clearHistory()
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                CookieManager.getInstance().removeAllCookie()
+            } else {
+                CookieManager.getInstance().removeAllCookies(null)
+            }
+        }
+
         if (url.contains("://dev.to")) {
             return false
         } else {
-            if(url.contains("api.twitter.com/oauth") or url.contains("github.com/login")) {
-                openBrowser(url)
-                return true
+            for (i in 0 until overrideUrlList.size) {
+                if (url.contains(overrideUrlList[i])) {
+                    return false
+                }
             }
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(-0x1000000)
