@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.webkit.ValueCallback
 import androidx.core.app.ActivityCompat
 import to.dev.dev_android.R
+import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
 
@@ -47,7 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     }
 
     private fun navigateToHome() {
-        binding.webView.loadUrl(resources.getString(R.string.main_url))
+        binding.webView.loadUrl(BuildConfig.baseUrl)
     }
 
     override fun onBackPressed() {
