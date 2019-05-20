@@ -2,6 +2,7 @@ package to.dev.dev_android.view.main.view
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.view.View
@@ -14,6 +15,7 @@ import to.dev.dev_android.databinding.ActivityMainBinding
 class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
 
     private val overrideUrlList = listOf(
+        "://dev.to",
         "api.twitter.com/oauth",
         "api.twitter.com/account/login_verification",
         "github.com/login",
@@ -37,21 +39,17 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
             }
         }
 
-        if (url.contains("://dev.to")) {
-            return false
-        } else {
-            for (i in 0 until overrideUrlList.size) {
-                if (url.contains(overrideUrlList[i])) {
-                    return false
-                }
+        for (i in 0 until overrideUrlList.size) {
+            if (url.contains(overrideUrlList[i])) {
+                return false
             }
-            val builder = CustomTabsIntent.Builder()
-            builder.setToolbarColor(-0x1000000)
-            val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(context, Uri.parse(url))
-            return true
         }
 
+        val builder = CustomTabsIntent.Builder()
+        builder.setToolbarColor(Color.parseColor("#00000000"))
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(context, Uri.parse(url))
+        return true
     }
 
     private fun openBrowser(url: String): Boolean {
