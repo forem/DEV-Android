@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DEV Community</string>
+    <string name="splash_description">Splash</string>
 </resources>
