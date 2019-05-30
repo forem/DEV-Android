@@ -10,8 +10,8 @@ android {
         applicationId "to.dev.dev_android"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
