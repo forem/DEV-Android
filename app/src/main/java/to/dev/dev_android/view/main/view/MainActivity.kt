@@ -77,15 +77,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PIC_CHOOSER_REQUEST) {
-                if (data != null) {
-                    mFilePathCallback?.onReceiveValue(arrayOf(data.data))
-                    mFilePathCallback = null
-                }
-            }
+        if (requestCode != PIC_CHOOSER_REQUEST) {
+            return super.onActivityResult(requestCode, resultCode, data)
         }
-        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                mFilePathCallback?.onReceiveValue(arrayOf(data.data))
+                mFilePathCallback = null
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            mFilePathCallback?.onReceiveValue(null)
+            mFilePathCallback = null
+        }
     }
 
     companion object {
