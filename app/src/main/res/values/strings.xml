@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DEV Community</string>
     <string name="splash_description">Splash</string>
+    <string name="base_url">https://dev.to/</string>
 </resources>
