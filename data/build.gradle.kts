@@ -1,3 +1,5 @@
+import to.dev.dev_android.build.BuildConfig
+
 plugins {
     id("com.android.library")
     id("kotlin-android-extensions")
@@ -5,13 +7,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
-
-
-
+    compileSdkVersion(BuildConfig.compileSdkVersion)
     defaultConfig {
-        minSdkVersion(19)
-        targetSdkVersion(28)
+        minSdkVersion(BuildConfig.minSdkVersion)
+        targetSdkVersion(BuildConfig.targetSdkVersion)
         versionCode = 1
         versionName = "1.0"
 
@@ -31,7 +30,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${BuildConfig.kotlinVersion}")
     implementation("androidx.appcompat:appcompat:1.0.2")
 
     testImplementation("junit:junit:4.12")

@@ -7,7 +7,8 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.4.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.31")
+        // Due an issue the full qualified name is required here. See https://github.com/gradle/kotlin-dsl/issues/1291
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${to.dev.dev_android.build.BuildConfig.kotlinVersion}")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
