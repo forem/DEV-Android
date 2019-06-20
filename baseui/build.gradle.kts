@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion(28)
 
     defaultConfig {
         minSdkVersion(19)
@@ -18,12 +18,12 @@ android {
     }
 
     buildTypes {
-        debug {
+        getByName("debug") {
             resValue("string", "baseUrl", "\"https://dev.to\"")
             buildConfigField("String", "baseUrl", "\"https://dev.to\"")
         }
-        release {
-            minifyEnabled false
+        getByName("release") {
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "baseUrl", "\"https://dev.to\"")
             buildConfigField("String", "baseUrl", "\"https://dev.to\"")
@@ -31,15 +31,15 @@ android {
     }
 
     dataBinding {
-        enabled = true
+        isEnabled = true
     }
 
 }
 
 dependencies {
-    implementation(fileTree(dir: "libs", include: ["*.jar"]))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31")
     api("androidx.appcompat:appcompat:1.0.2")
     api("androidx.constraintlayout:constraintlayout:1.1.3")
     api("androidx.lifecycle:lifecycle-extensions:2.0.0")

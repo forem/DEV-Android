@@ -5,35 +5,35 @@ plugins {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion(28)
     defaultConfig {
         applicationId = "to.dev.dev_android"
         minSdkVersion(19)
         targetSdkVersion(28)
-        versionCode(4)
+        versionCode = 4
         versionName = "1.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        getByName("release") {
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
-        debug {
-            applicationIdSuffix ".debug"
-            debuggable true
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
         }
     }
     dataBinding {
-        enabled = true
+        isEnabled = true
     }
 }
 
 dependencies {
-    implementation(fileTree(dir: "libs", include: ["*.jar"]))
-    implementation(project(path: ":baseui"))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(path = ":baseui"))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31")
     implementation("androidx.browser:browser:1.0.0")
 
     testImplementation("junit:junit:4.12")

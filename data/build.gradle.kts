@@ -20,8 +20,8 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        getByName("release") {
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -29,9 +29,9 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(dir: "libs", include: ["*.jar"]))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31")
     implementation("androidx.appcompat:appcompat:1.0.2")
 
     testImplementation("junit:junit:4.12")
