@@ -2,8 +2,8 @@ import to.dev.dev_android.build.BuildConfig
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
+    kotlin("android")
+    kotlin("android.extensions")
 }
 
 android {
@@ -40,7 +40,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(path = ":baseui"))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${BuildConfig.kotlinVersion}")
+    implementation(embeddedKotlin("stdlib-jdk8"))
     implementation("androidx.browser:browser:1.0.0")
 
     testImplementation("junit:junit:4.12")
