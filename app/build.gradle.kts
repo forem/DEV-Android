@@ -40,10 +40,10 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(path = ":baseui"))
 
-    implementation(embeddedKotlin("stdlib-jdk8"))
-    implementation("androidx.browser:browser:1.0.0")
+    implementation(Libs.kotlin_stdlib_jdk8)
+    implementation(Libs.browser)
 
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    testImplementation(Libs.junit)
+    androidTestImplementation(Libs.androidx_test_runner)
+    androidTestImplementation(Libs.espresso_core)
 }
