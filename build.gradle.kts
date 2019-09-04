@@ -14,6 +14,9 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+plugins {
+    buildSrcVersions
+}
 
 allprojects {
     repositories {
@@ -22,11 +25,16 @@ allprojects {
     }
 }
 
+/** Update Gradle with: $ ./gradlew buildSrcVersions && ./gradlew wrapper   ***/
 tasks.wrapper {
-    gradleVersion = "5.5"
+    gradleVersion = Versions.gradleLatestVersion
     distributionType = Wrapper.DistributionType.ALL
 }
 
 task("clean") {
     delete(rootProject.buildDir)
+}
+
+buildSrcVersions {
+    indent = "    "
 }
