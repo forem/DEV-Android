@@ -25,7 +25,7 @@ class CustomWebChromeClient(
     override fun onProgressChanged(view: WebView, newProgress: Int) {
         super.onProgressChanged(view, newProgress)
         if (newProgress == 100 && view.url == baseURL) {
-            view.clearHistory()
+            //view.clearHistory()
         }
     }
 
