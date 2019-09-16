@@ -16,6 +16,7 @@ buildscript {
 }
 plugins {
     buildSrcVersions
+    detekt
 }
 
 allprojects {
@@ -37,4 +38,20 @@ task("clean") {
 
 buildSrcVersions {
     indent = "    "
+}
+
+detekt {
+    input = files("$projectDir/app/src/main/java")
+    config = files("$projectDir/config/detekt/detekt.yml")
+    reports {
+        xml {
+            enabled = true
+            destination = file("$projectDir/reports/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("$projectDir/reports/detekt.html")
+        }
+    }
+    parallel = true
 }
