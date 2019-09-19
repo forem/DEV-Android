@@ -1,5 +1,3 @@
-import to.dev.dev_android.build.BuildConfig
-
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -7,26 +5,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion(BuildConfig.compileSdkVersion)
-    defaultConfig {
-        minSdkVersion(BuildConfig.minSdkVersion)
-        targetSdkVersion(BuildConfig.targetSdkVersion)
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    configureAndroid(this)
+    configureBuildConfig(this)
 
     buildTypes {
         getByName("debug") {
-            resValue("string", "baseUrl", "\"https://dev.to\"")
-            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
         }
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            resValue("string", "baseUrl", "\"https://dev.to\"")
-            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
         }
     }
 
