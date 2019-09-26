@@ -34,12 +34,12 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${BuildConfig.kotlinVersion}")
-    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation(Libs.kotlin_stdlib_jdk8)
+    implementation(Libs.appcompat)
 
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    testImplementation(Libs.junit)
+    androidTestImplementation(Libs.androidx_test_runner)
+    androidTestImplementation(Libs.espresso_core)
 }
 repositories {
     mavenCentral()

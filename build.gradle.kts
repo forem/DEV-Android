@@ -14,6 +14,10 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+plugins {
+    buildSrcVersions
+    detekt
+}
 
 allprojects {
     repositories {
@@ -22,11 +26,32 @@ allprojects {
     }
 }
 
+/** Update Gradle with: $ ./gradlew buildSrcVersions && ./gradlew wrapper   ***/
 tasks.wrapper {
-    gradleVersion = "5.5"
+    gradleVersion = Versions.gradleLatestVersion
     distributionType = Wrapper.DistributionType.ALL
 }
 
 task("clean") {
     delete(rootProject.buildDir)
+}
+
+buildSrcVersions {
+    indent = "    "
+}
+
+detekt {
+    input = files("$projectDir/app/src/main/java")
+    config = files("$projectDir/config/detekt/detekt.yml")
+    reports {
+        xml {
+            enabled = true
+            destination = file("$projectDir/reports/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("$projectDir/reports/detekt.html")
+        }
+    }
+    parallel = true
 }
