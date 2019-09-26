@@ -44,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
         binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
-        binding.webView.webChromeClient = CustomWebChromeClient(this@MainActivity, binding, this)
+        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, binding, this)
     }
 
     private fun navigateToHome() {
