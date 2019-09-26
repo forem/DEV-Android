@@ -19,14 +19,14 @@ android {
 
     buildTypes {
         getByName("debug") {
-            resValue("string", "baseUrl", "\"https://dev.to\"")
-            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
+            resValue("string", "baseUrl", "\"https://dev.to/\"")
+            buildConfigField("String", "baseUrl", "\"https://dev.to/\"")
         }
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            resValue("string", "baseUrl", "\"https://dev.to\"")
-            buildConfigField("String", "baseUrl", "\"https://dev.to\"")
+            resValue("string", "baseUrl", "\"https://dev.to/\"")
+            buildConfigField("String", "baseUrl", "\"https://dev.to/\"")
         }
     }
 
