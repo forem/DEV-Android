@@ -1,5 +1,3 @@
-import to.dev.dev_android.build.BuildConfig
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -7,15 +5,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion(BuildConfig.compileSdkVersion)
-    defaultConfig {
-        applicationId = "to.dev.dev_android"
-        minSdkVersion(BuildConfig.minSdkVersion)
-        targetSdkVersion(BuildConfig.targetSdkVersion)
-        versionCode = 4
-        versionName = "1.2"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    configureAndroid(this)
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -30,10 +21,6 @@ android {
         isEnabled = true
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {

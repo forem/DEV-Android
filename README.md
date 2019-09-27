@@ -19,7 +19,31 @@ We expect contributors to abide by our underlying [code of conduct](./CODE_OF_CO
 
 ### System Requirements
 
-You will need to have Android Studio 3.4 or up installed.
+You will need to have Android Studio 3.5 or up installed.
+
+### Usage
+
+```bash
+$ ./gradlew tasks --group=custom
+
+------------------------------------------------------------
+Tasks runnable from root project
+------------------------------------------------------------
+
+Custom tasks
+------------
+androidTest - Run android instrumentation tests
+clean - Delete directory "build"
+hello - Hello World task - useful to solve build problems
+install - Build and install the app
+test - Run the unit tests
+
+To see all tasks and more detail, run gradlew tasks --all
+
+To see more detail about a task, run gradlew help --task <task>
+
+```
+
 
 ### How to contribute
 
