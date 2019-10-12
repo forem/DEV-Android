@@ -23,8 +23,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setWebViewSettings()
-        navigateToHome()
+        savedInstanceState?.let { restoreState(it) }?: navigateToHome()
         handleIntent(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        binding.webView.saveState(outState)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -45,6 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.domStorageEnabled = true
         binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
         binding.webView.webChromeClient = CustomWebChromeClient(this@MainActivity, binding, this)
+    }
+
+    private fun restoreState(savedInstanceState: Bundle){
+        binding.webView.restoreState(savedInstanceState)
     }
 
     private fun navigateToHome() {
