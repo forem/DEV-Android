@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setWebViewSettings()
-        savedInstanceState?.let { restoreState(it) }?: navigateToHome()
+        savedInstanceState?.let { restoreState(it) } ?: navigateToHome()
         handleIntent(intent)
     }
 
@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, binding, this)
     }
 
-    private fun restoreState(savedInstanceState: Bundle){
+    private fun restoreState(savedInstanceState: Bundle) {
         binding.webView.restoreState(savedInstanceState)
     }
 
