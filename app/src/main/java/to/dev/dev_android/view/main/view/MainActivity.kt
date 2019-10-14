@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.webkit.ValueCallback
-import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import to.dev.dev_android.R
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
@@ -14,7 +14,7 @@ import to.dev.dev_android.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
 
-    private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
+    private var filePathCallback: ValueCallback<Array<Uri>>? = null
 
     override fun layout(): Int {
         return R.layout.activity_main
@@ -60,15 +60,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     }
 
     override fun launchGallery(filePathCallback: ValueCallback<Array<Uri>>?) {
-        mFilePathCallback = filePathCallback
+        this.filePathCallback = filePathCallback
 
-        val galleryIntent = Intent()
-        // Show only images, no videos or anything else
-        galleryIntent.type = "image/*"
-        galleryIntent.action = Intent.ACTION_PICK
+        val galleryIntent = Intent().apply {
+            // Show only images, no videos or anything else
+            type = "image/*"
+            action = Intent.ACTION_PICK
+        }
 
         // Always show the chooser (if there are multiple options available)
-        ActivityCompat.startActivityForResult(
+        startActivityForResult(
             this,
             Intent.createChooser(galleryIntent, "Select Picture"),
             PIC_CHOOSER_REQUEST,
@@ -81,14 +82,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
             return super.onActivityResult(requestCode, resultCode, data)
         }
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                mFilePathCallback?.onReceiveValue(arrayOf(data.data))
-                mFilePathCallback = null
+        when (resultCode) {
+            Activity.RESULT_OK -> data?.data?.let {
+                filePathCallback?.onReceiveValue(arrayOf(it))
+                filePathCallback = null
             }
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            mFilePathCallback?.onReceiveValue(null)
-            mFilePathCallback = null
+            Activity.RESULT_CANCELED -> {
+                filePathCallback?.onReceiveValue(null)
+                filePathCallback = null
+            }
         }
     }
 
