@@ -10,9 +10,11 @@ import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.browser.customtabs.CustomTabsIntent
-import to.dev.dev_android.databinding.ActivityMainBinding
 
-class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
+class CustomWebViewClient(
+    private val context: Context,
+    private val onPageFinish: () -> Unit
+) : WebViewClient() {
 
     private val overrideUrlList = listOf(
         "://dev.to",
@@ -21,8 +23,9 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
         "github.com/login",
         "github.com/sessions/"
     )
+
     override fun onPageFinished(view: WebView, url: String?) {
-        binding.splash.visibility = View.GONE
+        onPageFinish()
         view.visibility = View.VISIBLE
         super.onPageFinished(view, url)
     }
@@ -39,8 +42,8 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
             }
         }
 
-        for (i in 0 until overrideUrlList.size) {
-            if (url.contains(overrideUrlList[i])) {
+        for (element in overrideUrlList) {
+            if (url.contains(element)) {
                 return false
             }
         }
