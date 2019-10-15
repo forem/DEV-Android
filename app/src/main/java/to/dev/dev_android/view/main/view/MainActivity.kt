@@ -45,7 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     private fun setWebViewSettings() {
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
-        binding.webView.addJavascriptInterface(this.webViewBridge, "androidWebViewBridge")
+        binding.webView.addJavascriptInterface(webViewBridge, "androidWebViewBridge")
         binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, binding, this)
     }
