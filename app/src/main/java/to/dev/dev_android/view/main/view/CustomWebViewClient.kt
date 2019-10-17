@@ -42,22 +42,13 @@ class CustomWebViewClient(
             }
         }
 
-        for (element in overrideUrlList) {
-            if (url.contains(element)) {
-                return false
-            }
-        }
+        if (overrideUrlList.any { url.contains(it) }) return false
 
-        val builder = CustomTabsIntent.Builder()
-        builder.setToolbarColor(Color.parseColor("#00000000"))
-        val customTabsIntent = builder.build()
+        val customTabsIntent = CustomTabsIntent.Builder()
+            .setToolbarColor(Color.parseColor("#00000000"))
+            .build()
+        
         customTabsIntent.launchUrl(context, Uri.parse(url))
-        return true
-    }
-
-    private fun openBrowser(url: String): Boolean {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        context.startActivity(intent)
         return true
     }
 }
