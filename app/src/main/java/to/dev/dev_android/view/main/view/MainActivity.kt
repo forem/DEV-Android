@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.webkit.ValueCallback
-import androidx.core.app.ActivityCompat.startActivityForResult
 import to.dev.dev_android.R
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
@@ -70,7 +69,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
         // Always show the chooser (if there are multiple options available)
         startActivityForResult(
-            this,
             Intent.createChooser(galleryIntent, "Select Picture"),
             PIC_CHOOSER_REQUEST,
             null    // No additional data
