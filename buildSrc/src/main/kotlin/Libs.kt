@@ -7,110 +7,49 @@ import kotlin.String
  *   `$ ./gradlew buildSrcVersions`
  */
 object Libs {
-    /**
-     * http://developer.android.com/tools/extras/support-library.html
-     */
-    const val appcompat: String = "androidx.appcompat:appcompat:" + Versions.appcompat
+    const val databinding_adapters: String = "androidx.databinding:databinding-adapters:3.5.1"
 
-    /**
-     * http://developer.android.com/tools/extras/support-library.html
-     */
-    const val browser: String = "androidx.browser:browser:" + Versions.browser
+    const val databinding_common: String = "androidx.databinding:databinding-common:3.5.1"
 
-    /**
-     * http://tools.android.com
-     */
-    const val constraintlayout: String = "androidx.constraintlayout:constraintlayout:" +
-            Versions.constraintlayout
+    const val databinding_compiler: String = "androidx.databinding:databinding-compiler:3.5.1"
 
-    const val databinding_adapters: String = "androidx.databinding:databinding-adapters:" +
-            Versions.androidx_databinding
+    const val databinding_runtime: String = "androidx.databinding:databinding-runtime:3.5.1"
 
-    /**
-     * https://developer.android.com/studio
-     */
-    const val databinding_common: String = "androidx.databinding:databinding-common:" +
-            Versions.androidx_databinding
+    const val kotlin_android_extensions: String =
+            "org.jetbrains.kotlin:kotlin-android-extensions:1.3.50"
 
-    /**
-     * https://developer.android.com/studio
-     */
-    const val databinding_compiler: String = "androidx.databinding:databinding-compiler:" +
-            Versions.androidx_databinding
+    const val kotlin_android_extensions_runtime: String =
+            "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.50"
 
-    const val databinding_runtime: String = "androidx.databinding:databinding-runtime:" +
-            Versions.androidx_databinding
+    const val kotlin_gradle_plugin: String = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50"
 
-    /**
-     * https://developer.android.com/topic/libraries/architecture/index.html
-     */
-    const val lifecycle_extensions: String = "androidx.lifecycle:lifecycle-extensions:" +
-            Versions.androidx_lifecycle
+    const val kotlin_stdlib_jdk8: String = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
 
-    /**
-     * https://developer.android.com/topic/libraries/architecture/index.html
-     */
-    const val lifecycle_viewmodel: String = "androidx.lifecycle:lifecycle-viewmodel:" +
-            Versions.androidx_lifecycle
+    const val lifecycle_extensions: String = "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
-    /**
-     * https://developer.android.com/testing
-     */
-    const val espresso_core: String = "androidx.test.espresso:espresso-core:" +
-            Versions.espresso_core
+    const val lifecycle_viewmodel: String = "androidx.lifecycle:lifecycle-viewmodel:2.1.0"
 
-    /**
-     * https://developer.android.com/testing
-     */
-    const val androidx_test_runner: String = "androidx.test:runner:" + Versions.androidx_test_runner
+    const val com_android_tools_build_gradle: String = "com.android.tools.build:gradle:3.5.1"
 
-    /**
-     * https://developer.android.com/studio
-     */
-    const val aapt2: String = "com.android.tools.build:aapt2:" + Versions.aapt2
+    const val androidx_test_runner: String = "androidx.test:runner:1.2.0"
 
-    /**
-     * https://developer.android.com/studio
-     */
-    const val com_android_tools_build_gradle: String = "com.android.tools.build:gradle:" +
-            Versions.com_android_tools_build_gradle
-
-    /**
-     * https://developer.android.com/studio
-     */
-    const val lint_gradle: String = "com.android.tools.lint:lint-gradle:" + Versions.lint_gradle
+    const val io_gitlab_arturbosch_detekt_gradle_plugin: String =
+            "io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:1.1.1"
 
     const val de_fayard_buildsrcversions_gradle_plugin: String =
-            "de.fayard.buildSrcVersions:de.fayard.buildSrcVersions.gradle.plugin:" +
-            Versions.de_fayard_buildsrcversions_gradle_plugin
+            "de.fayard.buildSrcVersions:de.fayard.buildSrcVersions.gradle.plugin:0.7.0"
 
-    /**
-     * http://junit.org
-     */
-    const val junit: String = "junit:junit:" + Versions.junit
+    const val constraintlayout: String = "androidx.constraintlayout:constraintlayout:1.1.3"
 
-    /**
-     * https://kotlinlang.org/
-     */
-    const val kotlin_android_extensions_runtime: String =
-            "org.jetbrains.kotlin:kotlin-android-extensions-runtime:" +
-            Versions.org_jetbrains_kotlin
+    const val espresso_core: String = "androidx.test.espresso:espresso-core:3.2.0"
 
-    /**
-     * https://kotlinlang.org/
-     */
-    const val kotlin_android_extensions: String =
-            "org.jetbrains.kotlin:kotlin-android-extensions:" + Versions.org_jetbrains_kotlin
+    const val lint_gradle: String = "com.android.tools.lint:lint-gradle:26.5.1"
 
-    /**
-     * https://kotlinlang.org/
-     */
-    const val kotlin_gradle_plugin: String = "org.jetbrains.kotlin:kotlin-gradle-plugin:" +
-            Versions.org_jetbrains_kotlin
+    const val appcompat: String = "androidx.appcompat:appcompat:1.1.0"
 
-    /**
-     * https://kotlinlang.org/
-     */
-    const val kotlin_stdlib_jdk8: String = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:" +
-            Versions.org_jetbrains_kotlin
+    const val browser: String = "androidx.browser:browser:1.0.0"
+
+    const val aapt2: String = "com.android.tools.build:aapt2:3.5.1-5435860"
+
+    const val junit: String = "junit:junit:4.12"
 }
