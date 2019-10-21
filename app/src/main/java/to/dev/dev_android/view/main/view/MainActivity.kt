@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         handleIntent(intent)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         binding.webView.saveState(outState)
         super.onSaveInstanceState(outState)
     }
