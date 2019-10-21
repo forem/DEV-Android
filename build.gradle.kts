@@ -33,11 +33,6 @@ tasks.wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-task("clean") {
-    group = "custom"
-    description = "Delete directory build"
-    delete(rootProject.buildDir)
-}
 tasks.register("hello") {
     group = "custom"
     description = "Hello World task - useful to solve build problems"
