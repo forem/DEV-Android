@@ -32,22 +32,22 @@ object Versions {
 
     const val lint_gradle: String = "26.5.0"
 
-    const val de_fayard_buildsrcversions_gradle_plugin: String = "0.4.2"
+    const val de_fayard_buildsrcversions_gradle_plugin: String = "0.7.0"
 
     const val junit: String = "4.12"
 
-    const val org_jetbrains_kotlin: String = "1.3.41" // available: "1.3.50"
+    const val org_jetbrains_kotlin: String = "1.3.50"
 
-    const val io_gitlab_arturbosch_detekt: String = "1.0.1"
+    const val io_gitlab_arturbosch_detekt: String = "1.1.1"
 
     /**
      *
      * See issue 19: How to update Gradle itself?
      * https://github.com/jmfayard/buildSrcVersions/issues/19
      */
-    const val gradleLatestVersion: String = "5.6.1"
+    const val gradleLatestVersion: String = "5.6.2"
 
-    const val gradleCurrentVersion: String = "5.5"
+    const val gradleCurrentVersion: String = "5.6.2"
 }
 
 /**
