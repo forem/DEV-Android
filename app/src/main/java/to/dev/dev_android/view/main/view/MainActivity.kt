@@ -14,7 +14,7 @@ import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
-    private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge()
+    private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
 
     private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
 
