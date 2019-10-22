@@ -1,7 +1,6 @@
 package to.dev.dev_android.view.main.view
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -42,13 +41,15 @@ class CustomWebViewClient(
             }
         }
 
-        if (overrideUrlList.any { url.contains(it) }) return false
+        if (overrideUrlList.any { url.contains(it) }) {
+            return false
+        }
 
-        val customTabsIntent = CustomTabsIntent.Builder()
+        CustomTabsIntent.Builder()
             .setToolbarColor(Color.parseColor("#00000000"))
             .build()
-        
-        customTabsIntent.launchUrl(context, Uri.parse(url))
+            .also { it.launchUrl(context, Uri.parse(url)) }
+
         return true
     }
 }
