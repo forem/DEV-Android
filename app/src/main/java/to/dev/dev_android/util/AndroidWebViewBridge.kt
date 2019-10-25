@@ -145,4 +145,21 @@ class AndroidWebViewBridge(private val context: Context) {
         val message = mapOf("action" to event.action, "currentTime" to event.seconds)
         webViewClient?.sendBridgeMessage("video", message)
     }
+
+    /**
+     * This method is used to open the native share-sheet of Android when simple text is to be
+     * shared from the web-view.
+     */
+    @JavascriptInterface
+    fun shareText(text: String) {
+        val shareIntent = Intent.createChooser(
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, text)
+                type = "text/plain"
+            },
+            null
+        )
+        context.startActivity(shareIntent)
+    }
 }
