@@ -1,7 +1,6 @@
 package to.dev.dev_android.view.main.view
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -10,9 +9,11 @@ import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.browser.customtabs.CustomTabsIntent
-import to.dev.dev_android.databinding.ActivityMainBinding
 
-class CustomWebViewClient(private val context: Context, private val binding: ActivityMainBinding) : WebViewClient() {
+class CustomWebViewClient(
+    private val context: Context,
+    private val onPageFinish: () -> Unit
+) : WebViewClient() {
 
     private val overrideUrlList = listOf(
         "://dev.to",
@@ -21,8 +22,9 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
         "github.com/login",
         "github.com/sessions/"
     )
+
     override fun onPageFinished(view: WebView, url: String?) {
-        binding.splash.visibility = View.GONE
+        onPageFinish()
         view.visibility = View.VISIBLE
         super.onPageFinished(view, url)
     }
@@ -39,22 +41,15 @@ class CustomWebViewClient(private val context: Context, private val binding: Act
             }
         }
 
-        for (i in 0 until overrideUrlList.size) {
-            if (url.contains(overrideUrlList[i])) {
-                return false
-            }
+        if (overrideUrlList.any { url.contains(it) }) {
+            return false
         }
 
-        val builder = CustomTabsIntent.Builder()
-        builder.setToolbarColor(Color.parseColor("#00000000"))
-        val customTabsIntent = builder.build()
-        customTabsIntent.launchUrl(context, Uri.parse(url))
-        return true
-    }
+        CustomTabsIntent.Builder()
+            .setToolbarColor(Color.parseColor("#00000000"))
+            .build()
+            .also { it.launchUrl(context, Uri.parse(url)) }
 
-    private fun openBrowser(url: String): Boolean {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        context.startActivity(intent)
         return true
     }
 }

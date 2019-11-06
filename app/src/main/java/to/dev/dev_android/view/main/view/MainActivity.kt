@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.webkit.ValueCallback
 import androidx.core.app.ActivityCompat
 import to.dev.dev_android.R
@@ -51,8 +52,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
         binding.webView.addJavascriptInterface(webViewBridge, "androidWebViewBridge")
-        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
-        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, binding, this)
+        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity) {
+            binding.splash.visibility = View.GONE
+        }
+        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
     }
 
     private fun restoreState(savedInstanceState: Bundle) {

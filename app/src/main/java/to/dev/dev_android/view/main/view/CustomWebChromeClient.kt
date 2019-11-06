@@ -4,12 +4,10 @@ import android.net.Uri
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import to.dev.dev_android.databinding.ActivityMainBinding
 
 
 class CustomWebChromeClient(
-    val baseURL: String,
-    val binding: ActivityMainBinding,
+    private val baseURL: String,
     private val listener: CustomListener
 ) : WebChromeClient() {
 
