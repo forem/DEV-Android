@@ -5,13 +5,16 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.webkit.ValueCallback
 import to.dev.dev_android.R
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
+import to.dev.dev_android.util.AndroidWebViewBridge
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
+    private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge()
 
     private var filePathCallback: ValueCallback<Array<Uri>>? = null
 
@@ -22,8 +25,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setWebViewSettings()
-        navigateToHome()
+        savedInstanceState?.let { restoreState(it) } ?: navigateToHome()
         handleIntent(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        binding.webView.saveState(outState)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -42,8 +50,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     private fun setWebViewSettings() {
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
-        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding)
-        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, binding, this)
+        binding.webView.addJavascriptInterface(webViewBridge, "androidWebViewBridge")
+        binding.webView.webViewClient = CustomWebViewClient(this@MainActivity) {
+            binding.splash.visibility = View.GONE
+        }
+        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
+    }
+
+    private fun restoreState(savedInstanceState: Bundle) {
+        binding.webView.restoreState(savedInstanceState)
     }
 
     private fun navigateToHome() {

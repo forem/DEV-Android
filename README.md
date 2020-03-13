@@ -33,7 +33,6 @@ Tasks runnable from root project
 Custom tasks
 ------------
 androidTest - Run android instrumentation tests
-clean - Delete directory "build"
 hello - Hello World task - useful to solve build problems
 install - Build and install the app
 test - Run the unit tests
