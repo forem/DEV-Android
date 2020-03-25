@@ -9,6 +9,7 @@ import android.view.View
 import android.webkit.ValueCallback
 import androidx.core.app.ActivityCompat
 import to.dev.dev_android.R
+import com.pusher.pushnotifications.PushNotifications
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
@@ -28,6 +29,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         setWebViewSettings()
         savedInstanceState?.let { restoreState(it) } ?: navigateToHome()
         handleIntent(intent)
+        PushNotifications.start(getApplicationContext(), "cdaf9857-fad0-4bfb-b360-64c1b2693ef3");
+        PushNotifications.addDeviceInterest("broadcast");
+    }
+
+    override fun onResume() {
+        if (intent.extras != null && intent.extras["url"] != null) {
+            binding.webView.loadUrl(intent.extras["url"].toString())
+        }
+        super.onResume()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

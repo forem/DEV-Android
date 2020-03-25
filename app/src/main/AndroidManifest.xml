@@ -15,6 +15,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+            tools:replace="android:fullBackupContent"
     >
         <activity
                 android:name=".view.main.view.MainActivity"
