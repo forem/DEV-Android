@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         setWebViewSettings()
         savedInstanceState?.let { restoreState(it) } ?: navigateToHome()
         handleIntent(intent)
-        PushNotifications.start(getApplicationContext(), "cdaf9857-fad0-4bfb-b360-64c1b2693ef3");
+        PushNotifications.start(getApplicationContext(), BuildConfig.pusherInstanceId);
         PushNotifications.addDeviceInterest("broadcast");
     }
 

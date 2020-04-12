@@ -33,8 +33,6 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:18.0.0")
     implementation("com.pusher:push-notifications-android:1.6.2")
 
-    implementation("com.google.code.gson:gson:2.8.6")
-
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
     androidTestImplementation(Libs.espresso_core)

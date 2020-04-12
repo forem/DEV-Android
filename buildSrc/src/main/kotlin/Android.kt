@@ -40,6 +40,8 @@ fun Project.configureBuildConfig(android: BaseExtension) {
     android.buildTypes.all {
         resValue("string", "baseUrl", extra.string("chrome.baseUrl"))
         buildConfigString("baseUrl", extra.string("chrome.baseUrl"))
+        resValue("string", "pusherInstanceId", extra.string("pusher.instanceId"))
+        buildConfigString("pusherInstanceId", extra.string("pusher.instanceId"))
     }
 }
 

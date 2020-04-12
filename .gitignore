@@ -82,3 +82,6 @@ lint/tmp/
 
 # Detekt Reports
 reports/
+
+# Firebase config
+app/google-services.json
