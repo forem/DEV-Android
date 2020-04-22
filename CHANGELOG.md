@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.2](https://github.com/thepracticaldev/DEV-Android/tree/1.2.2) (2020-04-22)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.2.1...1.2.2)
+
+**Merged pull requests:**
+
+- Disable backup [\#71](https://github.com/thepracticaldev/DEV-Android/pull/71) ([maestromac](https://github.com/maestromac))
+- Adds native bridge ability to handle "copy to clipboard" requests from JS [\#70](https://github.com/thepracticaldev/DEV-Android/pull/70) ([fdoxyz](https://github.com/fdoxyz))
+- Add methods to implement native copy-to-clipboard functionality. [\#60](https://github.com/thepracticaldev/DEV-Android/pull/60) ([VarunBarad](https://github.com/VarunBarad))
+
 ## [1.2.1](https://github.com/thepracticaldev/DEV-Android/tree/1.2.1) (2020-03-30)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.2...1.2.1)
