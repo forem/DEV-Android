@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.ValueCallback
+import android.webkit.WebView
 import to.dev.dev_android.R
 import com.pusher.pushnotifications.PushNotifications
 import to.dev.dev_android.base.BuildConfig
@@ -15,7 +17,7 @@ import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
-    private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge()
+    private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
 
     private var filePathCallback: ValueCallback<Array<Uri>>? = null
 
@@ -58,9 +60,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setWebViewSettings() {
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true)
+        }
+
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
-        binding.webView.addJavascriptInterface(webViewBridge, "androidWebViewBridge")
+        binding.webView.settings.userAgentString = BuildConfig.userAgent
+
+        binding.webView.addJavascriptInterface(webViewBridge, "AndroidBridge")
         binding.webView.webViewClient = CustomWebViewClient(this@MainActivity) {
             binding.splash.visibility = View.GONE
         }
