@@ -30,6 +30,8 @@ dependencies {
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
+    implementation("com.google.android.exoplayer:exoplayer:2.11.4")
+
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
     androidTestImplementation(Libs.espresso_core)

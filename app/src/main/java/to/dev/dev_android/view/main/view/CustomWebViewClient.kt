@@ -4,19 +4,24 @@ import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.browser.customtabs.CustomTabsIntent
+import org.json.JSONObject
+import to.dev.dev_android.R
 
 class CustomWebViewClient(
     private val context: Context,
+    private val view: WebView,
     private val onPageFinish: () -> Unit
 ) : WebViewClient() {
 
     private val overrideUrlList = listOf(
         "://dev.to",
+        "://fdoxyz.ngrok.io",
         "api.twitter.com/oauth",
         "api.twitter.com/account/login_verification",
         "github.com/login",
@@ -51,5 +56,17 @@ class CustomWebViewClient(
             .also { it.launchUrl(context, Uri.parse(url)) }
 
         return true
+    }
+
+    fun sendPodcastMessage(message: Map<String, String>) {
+        val jsonMessage = JSONObject(message).toString()
+        val javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
+        view?.evaluateJavascript(javascript) { result ->
+            if (result != "null") {
+                Log.i("PODCAST", "Message sent successfully")
+            } else {
+                Log.w("PODCAST", "Message failed to be sent")
+            }
+        }
     }
 }
