@@ -9,9 +9,9 @@ This is the official repository for the [dev.to](https://dev.to/)'s Android app.
 
 ## Design ethos
 
-DEV Android is an [WebView](https://developer.android.com/guide/webapps/webview) based application. This application is inspired by [Basecamp's approach](https://m.signalvnoise.com/basecamp-3-for-ios-hybrid-architecture-afc071589c25). We will grow to include more native code over time. 
+DEV Android is an [WebView](https://developer.android.com/guide/webapps/webview) based application. This application is inspired by [Basecamp's approach](https://m.signalvnoise.com/basecamp-3-for-ios-hybrid-architecture-afc071589c25). We will grow to include more native code over time.
 
-By leveraging webviews as much as possible, we can smoothly sync up with our web dev work. And where it makes sense, we can re-implement certain things fully native, or build entirely native features. Life's a journey, not a destination. 
+By leveraging webviews as much as possible, we can smoothly sync up with our web dev work. And where it makes sense, we can re-implement certain things fully native, or build entirely native features. Life's a journey, not a destination.
 
 ## Contributions
 
@@ -43,6 +43,11 @@ To see more detail about a task, run gradlew help --task <task>
 
 ```
 
+### Push Notifications
+
+For Push Notification delivery we use [Pusher Beams](https://pusher.com/beams). In order to get the app running locally you'll need a `google-services.json` configuration file from Firebase, otherwise you'll encounter the following error: `File google-services.json is missing. The Google Services Plugin cannot function without it.`
+
+You can [sign up or sign in on Firebase](https://firebase.google.com/) account for free in order to get the app working locally. Steps 1-4 under **Firebase for Android Push Notifications** in our [official docs](https://docs.dev.to/backend/pusher/#mobile-push-notifications) show how to set this up in more detail. Drop the resulting `google-services.json` file in the `app` folder and you'll be good to go.
 
 ### How to contribute
 
