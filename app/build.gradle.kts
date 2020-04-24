@@ -31,8 +31,12 @@ dependencies {
     implementation(Libs.browser)
 
     implementation("com.google.android.exoplayer:exoplayer:2.11.4")
+    implementation("com.google.firebase:firebase-messaging:18.0.0")
+    implementation("com.pusher:push-notifications-android:1.6.2")
 
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
     androidTestImplementation(Libs.espresso_core)
 }
+
+apply(plugin = "com.google.gms.google-services")

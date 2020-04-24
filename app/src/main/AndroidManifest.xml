@@ -13,8 +13,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true"
-            tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+            tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+            tools:replace="android:fullBackupContent"
+    >
         <activity
                 android:name=".view.main.view.MainActivity"
                 android:screenOrientation="portrait">

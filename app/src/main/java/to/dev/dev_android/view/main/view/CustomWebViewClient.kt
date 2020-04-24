@@ -11,7 +11,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.browser.customtabs.CustomTabsIntent
 import org.json.JSONObject
-import to.dev.dev_android.R
+import com.pusher.pushnotifications.PushNotifications
+import java.lang.Exception
 
 class CustomWebViewClient(
     private val context: Context,
@@ -28,10 +29,30 @@ class CustomWebViewClient(
         "github.com/sessions/"
     )
 
+    private var registeredUserNotifications = false
+
     override fun onPageFinished(view: WebView, url: String?) {
         onPageFinish()
         view.visibility = View.VISIBLE
         super.onPageFinished(view, url)
+    }
+
+    override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
+        val javascript = "JSON.parse(document.getElementsByTagName('body')[0].getAttribute('data-user')).id"
+        view?.evaluateJavascript(javascript) { result ->
+            if (result != "null" && !registeredUserNotifications) {
+                try {
+                    val userId = result.toString().toInt()
+                    PushNotifications.addDeviceInterest("user-notifications-$userId")
+                    registeredUserNotifications = true
+                }
+                catch (e: Exception) {
+                    println(e)
+                }
+            }
+        }
+
+        super.doUpdateVisitedHistory(view, url, isReload)
     }
 
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
