@@ -72,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.webViewClient = CustomWebViewClient(this@MainActivity, binding.webView) {
             binding.splash.visibility = View.GONE
         }
+        webViewBridge.webViewClient = binding.webView.webViewClient as? CustomWebViewClient
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
     }
 

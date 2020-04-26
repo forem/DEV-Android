@@ -22,7 +22,6 @@ class CustomWebViewClient(
 
     private val overrideUrlList = listOf(
         "://dev.to",
-        "://fdoxyz.ngrok.io",
         "api.twitter.com/oauth",
         "api.twitter.com/account/login_verification",
         "github.com/login",
@@ -79,15 +78,17 @@ class CustomWebViewClient(
         return true
     }
 
-    fun sendPodcastMessage(message: Map<String, String>) {
+    fun sendPodcastMessage(message: Map<String, Any>) {
         val jsonMessage = JSONObject(message).toString()
         val javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
-        view?.evaluateJavascript(javascript) { result ->
-            if (result != "null") {
-                Log.i("PODCAST", "Message sent successfully")
-            } else {
-                Log.w("PODCAST", "Message failed to be sent")
+        view?.post(Runnable {
+            view?.evaluateJavascript(javascript) { result ->
+                if (result != "null") {
+                    Log.i("PODCAST", "Message sent successfully")
+                } else {
+                    Log.w("PODCAST", "Message failed to be sent")
+                }
             }
-        }
+        })
     }
 }

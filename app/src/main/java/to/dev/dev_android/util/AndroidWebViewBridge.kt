@@ -9,36 +9,21 @@ import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.view.main.view.CustomWebViewClient
 import java.util.*
 
-
-/**
- * This class currently is empty because more methods would be added to it
- * when new bridge functionalities are added.
- */
-class AndroidWebViewBridge(private val context: Context) : Player.EventListener {
+class AndroidWebViewBridge(private val context: Context) {
 
     var webViewClient: CustomWebViewClient? = null
-    private var player: SimpleExoPlayer? = null
-    private val timer = java.util.Timer()
-    private val timeUpdateTask = object: TimerTask() {
-        override fun run() {
-            val mainHandler = Handler(context.mainLooper)
-            mainHandler.post(Runnable { podcastTimeUpdate() })
-        }
-    }
+    private val timer = Timer()
 
-    /**
-     * Every method that has to be accessed from web-view needs to be marked with
-     * `@JavascriptInterface`.
-     * This is currently just a sample method which logs an error to Logcat.
-     */
+    private var player: SimpleExoPlayer? = null
+    private var playerHandler: Handler? = null
+
     @JavascriptInterface
     fun logError(errorTag: String, errorMessage: String) {
         Log.e(errorTag, errorMessage)
@@ -60,13 +45,12 @@ class AndroidWebViewBridge(private val context: Context) : Player.EventListener 
     fun loadPodcast(url: String) {
         try {
             if (player == null) {
-                player = SimpleExoPlayer.Builder(context).build()
-                player?.addListener(this)
+                initPlayer()
             }
 
-            var dataSourceFactory = DefaultDataSourceFactory(context, BuildConfig.userAgent)
-            var streamUri = Uri.parse(url)
-            var mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
+            val dataSourceFactory = DefaultDataSourceFactory(context, BuildConfig.userAgent)
+            val streamUri = Uri.parse(url)
+            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
             player?.prepare(mediaSource)
         } catch (e: Exception) {
             Log.e("PODCAST", e.toString())
@@ -75,27 +59,64 @@ class AndroidWebViewBridge(private val context: Context) : Player.EventListener 
 
     @JavascriptInterface
     fun playPodcast(seconds: String) {
-        player?.setPlayWhenReady(true)
-        timer.schedule(timeUpdateTask, 0, 1000)
+        player?.playWhenReady = true
     }
 
     @JavascriptInterface
     fun pausePodcast() {
-        player?.setPlayWhenReady(false)
+        player?.playWhenReady = false
     }
 
     @JavascriptInterface
     fun terminatePodcast() {
-        timer.cancel()
         player?.release()
         player = null
+        playerHandler = null
+    }
+
+    @JavascriptInterface
+    fun seekPodcast(seconds: Float) {
+        player?.seekTo((seconds * 1000F).toLong())
+    }
+
+    @JavascriptInterface
+    fun ratePodcast(rate: Float) {
+        player?.setPlaybackParameters(PlaybackParameters(rate))
+    }
+
+    @JavascriptInterface
+    fun mutePodcast(muted: Boolean) {
+        if (muted) {
+            player?.volume = 0F
+        } else {
+            player?.volume = 1F
+        }
+    }
+
+    fun initPlayer() {
+        player = SimpleExoPlayer.Builder(context).build()
+        player?.audioAttributes = AudioAttributes.Builder()
+            .setUsage(C.USAGE_MEDIA)
+            .setContentType(C.CONTENT_TYPE_SPEECH)
+            .build()
+
+        // Creates a task that will update about every second. Has to use the player's thread
+        // https://exoplayer.dev/hello-world.html#a-note-on-threading
+        playerHandler = Handler(player?.applicationLooper)
+        val timeUpdateTask = object: TimerTask() {
+            override fun run() {
+                playerHandler?.post(Runnable { podcastTimeUpdate() })
+            }
+        }
+        timer.schedule(timeUpdateTask, 0, 1000)
     }
 
     fun podcastTimeUpdate() {
-        val position = (player?.contentPosition ?: 0 / 1000.0).toString()
-        val duration = (player?.duration ?: 0 / 1000.0).toString()
-        val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to position)
-        Log.i("PODCAST", message.toString())
-        webViewClient?.sendPodcastMessage(message)
+        if (player != null) {
+            val time = player!!.currentPosition / 1000
+            val duration = player!!.duration / 1000
+            val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to time)
+            webViewClient?.sendPodcastMessage(message)
+        }
     }
 }
