@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3](https://github.com/thepracticaldev/DEV-Android/tree/1.3) (2020-04-24)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.2.2...1.3)
+
+**Merged pull requests:**
+
+- Adds Pusher beams and code that enables push notifications handling [\#68](https://github.com/thepracticaldev/DEV-Android/pull/68) ([fdoxyz](https://github.com/fdoxyz))
+
 ## [1.2.2](https://github.com/thepracticaldev/DEV-Android/tree/1.2.2) (2020-04-22)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.2.1...1.2.2)
