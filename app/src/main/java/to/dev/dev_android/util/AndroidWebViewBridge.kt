@@ -1,18 +1,11 @@
 package to.dev.dev_android.util
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.net.Uri
-import android.os.Handler
+import android.content.*
+import android.os.IBinder
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
-import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.audio.AudioAttributes
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import to.dev.dev_android.base.BuildConfig
+import to.dev.dev_android.media.AudioService
 import to.dev.dev_android.view.main.view.CustomWebViewClient
 import java.util.*
 
@@ -21,8 +14,18 @@ class AndroidWebViewBridge(private val context: Context) {
     var webViewClient: CustomWebViewClient? = null
     private val timer = Timer()
 
-    private var player: SimpleExoPlayer? = null
-    private var playerHandler: Handler? = null
+    // audioService is initialized when onServiceConnected is executed after/during binding is done
+    private var audioService: AudioService? = null
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as AudioService.AudioServiceBinder
+            audioService = binder.service
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            audioService = null
+        }
+    }
 
     @JavascriptInterface
     fun logError(errorTag: String, errorMessage: String) {
@@ -43,78 +46,61 @@ class AndroidWebViewBridge(private val context: Context) {
 
     @JavascriptInterface
     fun loadPodcast(url: String) {
-        try {
-            if (player == null) {
-                initPlayer()
-            }
-
-            val dataSourceFactory = DefaultDataSourceFactory(context, BuildConfig.userAgent)
-            val streamUri = Uri.parse(url)
-            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
-            player?.prepare(mediaSource)
-        } catch (e: Exception) {
-            Log.e("PODCAST", e.toString())
+        AudioService.newIntent(context, url).also { intent ->
+            // This service will get converted to foreground service using the PlayerNotificationManager notification Id.
+            context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-    }
 
-    @JavascriptInterface
-    fun playPodcast(seconds: String) {
-        player?.playWhenReady = true
-    }
-
-    @JavascriptInterface
-    fun pausePodcast() {
-        player?.playWhenReady = false
-    }
-
-    @JavascriptInterface
-    fun terminatePodcast() {
-        player?.release()
-        player = null
-        playerHandler = null
-    }
-
-    @JavascriptInterface
-    fun seekPodcast(seconds: Float) {
-        player?.seekTo((seconds * 1000F).toLong())
-    }
-
-    @JavascriptInterface
-    fun ratePodcast(rate: Float) {
-        player?.setPlaybackParameters(PlaybackParameters(rate))
-    }
-
-    @JavascriptInterface
-    fun mutePodcast(muted: Boolean) {
-        if (muted) {
-            player?.volume = 0F
-        } else {
-            player?.volume = 1F
-        }
-    }
-
-    fun initPlayer() {
-        player = SimpleExoPlayer.Builder(context).build()
-        player?.audioAttributes = AudioAttributes.Builder()
-            .setUsage(C.USAGE_MEDIA)
-            .setContentType(C.CONTENT_TYPE_SPEECH)
-            .build()
-
-        // Creates a task that will update about every second. Has to use the player's thread
-        // https://exoplayer.dev/hello-world.html#a-note-on-threading
-        playerHandler = Handler(player?.applicationLooper)
         val timeUpdateTask = object: TimerTask() {
             override fun run() {
-                playerHandler?.post(Runnable { podcastTimeUpdate() })
+                podcastTimeUpdate()
             }
         }
         timer.schedule(timeUpdateTask, 0, 1000)
     }
 
+    @JavascriptInterface
+    fun playPodcast(seconds: String) {
+        audioService?.play()
+    }
+
+    @JavascriptInterface
+    fun pausePodcast() {
+        audioService?.pause()
+    }
+
+    @JavascriptInterface
+    fun metadataPodcast(episodeName: String, podcastName: String, imageUrl: String) {
+        audioService?.loadMetadata(episodeName, podcastName, imageUrl)
+    }
+
+    @JavascriptInterface
+    fun terminatePodcast() {
+        audioService?.pause()
+        context.unbindService(connection)
+        audioService = null
+        context.stopService(Intent(context, AudioService::class.java))
+    }
+
+    @JavascriptInterface
+    fun seekPodcast(seconds: Float) {
+        audioService?.seekTo(seconds)
+    }
+
+    @JavascriptInterface
+    fun ratePodcast(rate: Float) {
+        audioService?.rate(rate)
+    }
+
+    @JavascriptInterface
+    fun mutePodcast(muted: Boolean) {
+        audioService?.mute(muted)
+    }
+
     fun podcastTimeUpdate() {
-        if (player != null) {
-            val time = player!!.currentPosition / 1000
-            val duration = player!!.duration / 1000
+        audioService?.let {
+            val time = it.currentTimeInSec() / 1000
+            val duration = it.durationInSec() / 1000
             val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to time)
             webViewClient?.sendPodcastMessage(message)
         }

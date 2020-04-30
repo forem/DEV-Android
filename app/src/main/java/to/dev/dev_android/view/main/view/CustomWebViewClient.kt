@@ -82,13 +82,7 @@ class CustomWebViewClient(
         val jsonMessage = JSONObject(message).toString()
         val javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
         view?.post(Runnable {
-            view?.evaluateJavascript(javascript) { result ->
-                if (result != "null") {
-                    Log.i("PODCAST", "Message sent successfully")
-                } else {
-                    Log.w("PODCAST", "Message failed to be sent")
-                }
-            }
+            view?.evaluateJavascript(javascript, null)
         })
     }
 }
