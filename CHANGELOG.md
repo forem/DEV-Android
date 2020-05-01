@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/thepracticaldev/DEV-Android/tree/1.3.1) (2020-04-30)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3...1.3.1)
+
+**Merged pull requests:**
+
+- Reverts changes made to AndroidManifest.xml [\#74](https://github.com/thepracticaldev/DEV-Android/pull/74) ([fdoxyz](https://github.com/fdoxyz))
+
 ## [1.3](https://github.com/thepracticaldev/DEV-Android/tree/1.3) (2020-04-24)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.2.2...1.3)
@@ -7,6 +15,7 @@
 **Merged pull requests:**
 
 - Adds Pusher beams and code that enables push notifications handling [\#68](https://github.com/thepracticaldev/DEV-Android/pull/68) ([fdoxyz](https://github.com/fdoxyz))
+- Add a bridge between WebView JavaScript and native Android code. [\#53](https://github.com/thepracticaldev/DEV-Android/pull/53) ([VarunBarad](https://github.com/VarunBarad))
 
 ## [1.2.2](https://github.com/thepracticaldev/DEV-Android/tree/1.2.2) (2020-04-22)
 
@@ -48,7 +57,6 @@
 - Adding 'when' to substitute if [\#56](https://github.com/thepracticaldev/DEV-Android/pull/56) ([sierisimo](https://github.com/sierisimo))
 - The 'clean' task is already present [\#55](https://github.com/thepracticaldev/DEV-Android/pull/55) ([sierisimo](https://github.com/sierisimo))
 - Updating versions to latest [\#54](https://github.com/thepracticaldev/DEV-Android/pull/54) ([sierisimo](https://github.com/sierisimo))
-- Add a bridge between WebView JavaScript and native Android code. [\#53](https://github.com/thepracticaldev/DEV-Android/pull/53) ([VarunBarad](https://github.com/VarunBarad))
 - Bug/save webview state retain history [\#52](https://github.com/thepracticaldev/DEV-Android/pull/52) ([sduduzog](https://github.com/sduduzog))
 - Refactor and clean-up build [\#50](https://github.com/thepracticaldev/DEV-Android/pull/50) ([jmfayard](https://github.com/jmfayard))
 - Add detekt static analysis [\#47](https://github.com/thepracticaldev/DEV-Android/pull/47) ([xuhaibahmad](https://github.com/xuhaibahmad))
@@ -60,6 +68,7 @@
 - Moving code into JDK8 [\#40](https://github.com/thepracticaldev/DEV-Android/pull/40) ([sierisimo](https://github.com/sierisimo))
 - Clear history when returning to home [\#39](https://github.com/thepracticaldev/DEV-Android/pull/39) ([robertoissc](https://github.com/robertoissc))
 - fix: Fixes issue to launch file chooser every time [\#34](https://github.com/thepracticaldev/DEV-Android/pull/34) ([subbramanil](https://github.com/subbramanil))
+- Codestyle cleanup [\#22](https://github.com/thepracticaldev/DEV-Android/pull/22) ([msfjarvis](https://github.com/msfjarvis))
 
 ## [1.2](https://github.com/thepracticaldev/DEV-Android/tree/1.2) (2019-05-30)
 
@@ -76,7 +85,6 @@
 - Codestyle and dependency upgrades [\#28](https://github.com/thepracticaldev/DEV-Android/pull/28) ([msfjarvis](https://github.com/msfjarvis))
 - Feature/Moving `main url` out of `strings.xml` [\#27](https://github.com/thepracticaldev/DEV-Android/pull/27) ([VarunBarad](https://github.com/VarunBarad))
 - fix: Choose File Option Not Working Issue [\#26](https://github.com/thepracticaldev/DEV-Android/pull/26) ([subbramanil](https://github.com/subbramanil))
-- Codestyle cleanup [\#22](https://github.com/thepracticaldev/DEV-Android/pull/22) ([msfjarvis](https://github.com/msfjarvis))
 
 ## [1.1](https://github.com/thepracticaldev/DEV-Android/tree/1.1) (2019-04-30)
 
