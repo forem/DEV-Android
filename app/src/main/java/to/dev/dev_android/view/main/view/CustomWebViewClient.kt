@@ -4,16 +4,19 @@ import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.browser.customtabs.CustomTabsIntent
+import org.json.JSONObject
 import com.pusher.pushnotifications.PushNotifications
 import java.lang.Exception
 
 class CustomWebViewClient(
     private val context: Context,
+    private val view: WebView,
     private val onPageFinish: () -> Unit
 ) : WebViewClient() {
 
@@ -73,5 +76,13 @@ class CustomWebViewClient(
             .also { it.launchUrl(context, Uri.parse(url)) }
 
         return true
+    }
+
+    fun sendPodcastMessage(message: Map<String, Any>) {
+        val jsonMessage = JSONObject(message).toString()
+        val javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
+        view?.post(Runnable {
+            view?.evaluateJavascript(javascript, null)
+        })
     }
 }

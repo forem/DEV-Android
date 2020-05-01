@@ -4,6 +4,7 @@
         package="to.dev.dev_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
             android:allowBackup="false"
@@ -34,6 +35,8 @@
                         android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <service android:name=".media.AudioService" />
     </application>
 
 </manifest>
