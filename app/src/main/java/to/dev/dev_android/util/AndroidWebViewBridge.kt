@@ -47,7 +47,6 @@ class AndroidWebViewBridge(private val context: Context) {
     @JavascriptInterface
     fun loadPodcast(url: String) {
         AudioService.newIntent(context, url).also { intent ->
-            // This service will get converted to foreground service using the PlayerNotificationManager notification Id.
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 

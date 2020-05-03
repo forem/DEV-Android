@@ -8,20 +8,16 @@ import android.graphics.Bitmap
 import android.media.MediaMetadata
 import android.net.Uri
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
-import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable
 import androidx.lifecycle.LifecycleService
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.PlaybackParameters
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.audio.AudioAttributes
-import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
-import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -39,7 +35,6 @@ class AudioService : LifecycleService() {
     private var player: SimpleExoPlayer? = null
     private var playerNotificationManager: PlayerNotificationManager? = null
     private var mediaSession: MediaSessionCompat? = null
-    private var mediaSessionConnector: MediaSessionConnector? = null
 
     inner class AudioServiceBinder : Binder() {
         val service: AudioService
@@ -48,7 +43,10 @@ class AudioService : LifecycleService() {
 
     companion object {
         @MainThread
-        fun newIntent(context: Context, episodeUrl: String) = Intent(context, AudioService::class.java).apply {
+        fun newIntent(
+            context: Context,
+            episodeUrl: String
+        ) = Intent(context, AudioService::class.java).apply {
             putExtra(argPodcastUrl, episodeUrl)
         }
 
@@ -80,7 +78,7 @@ class AudioService : LifecycleService() {
             .setContentType(C.CONTENT_TYPE_SPEECH)
             .build()
 
-        playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
+        playerNotificationManager = PodcastPlayerNotificationManager.createWithNotificationChannel(
             applicationContext,
             playbackChannelId,
             R.string.app_name,
@@ -100,7 +98,10 @@ class AudioService : LifecycleService() {
                 }
 
                 @Nullable
-                override fun getCurrentLargeIcon(player: Player, callback: PlayerNotificationManager.BitmapCallback): Bitmap? {
+                override fun getCurrentLargeIcon(
+                    player: Player,
+                    callback: PlayerNotificationManager.BitmapCallback
+                ): Bitmap? {
                     return null
                 }
             },
@@ -131,53 +132,30 @@ class AudioService : LifecycleService() {
                 }
             }
         ).apply {
-            // Omit skip previous and next actions.
             setUseNavigationActions(false)
-
-            // Add stop action.
             setUseStopAction(true)
-
-            setUseNavigationActionsInCompactView(false)
-
+            setUseNavigationActionsInCompactView(true)
             setFastForwardIncrementMs(incrementMs.toLong())
             setRewindIncrementMs(incrementMs.toLong())
-
             setPlayer(player)
+            invalidate()
         }
 
         // Show lock screen controls and let apps like Google assistant manager playback.
-        mediaSession = MediaSessionCompat(this, mediaSessionTag).apply {
-            isActive = true
+        mediaSession = MediaSessionCompat(this, mediaSessionTag)
+        val builder = MediaMetadataCompat.Builder()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.putString(MediaMetadata.METADATA_KEY_TITLE, episodeName)
+                .putString(MediaMetadata.METADATA_KEY_ARTIST, podcastName)
         }
-        val metadata = MediaMetadataCompat.Builder()
-            .putString(MediaMetadata.METADATA_KEY_TITLE, episodeName)
-            .putString(MediaMetadata.METADATA_KEY_DISPLAY_SUBTITLE, podcastName)
-            .build()
-        mediaSession?.setMetadata(metadata)
-
+        mediaSession?.setMetadata(builder.build())
         playerNotificationManager?.setMediaSessionToken(mediaSession!!.sessionToken)
-        mediaSessionConnector = MediaSessionConnector(mediaSession!!).apply {
-            setQueueNavigator(object : TimelineQueueNavigator(mediaSession) {
-                override fun getMediaDescription(player: Player, windowIndex: Int): MediaDescriptionCompat {
-                    val title = episodeName ?: getString(R.string.app_name)
-                    val description = podcastName ?: getString(R.string.playback_channel_description)
-
-                    return MediaDescriptionCompat.Builder()
-                        .setTitle(title)
-                        .setDescription(description)
-                        .build()
-                }
-            })
-
-            setFastForwardIncrementMs(incrementMs)
-            setRewindIncrementMs(incrementMs)
-            setPlayer(player)
-        }
     }
 
     @MainThread
     fun play() {
         player?.playWhenReady = true
+        player?.currentWindowIndex
     }
 
     @MainThread
@@ -225,9 +203,14 @@ class AudioService : LifecycleService() {
     private fun preparePlayer() {
         player?.playWhenReady = false
 
+        // Allows the data source to be seekable
+        val extractorsFactory: DefaultExtractorsFactory =
+            DefaultExtractorsFactory().setConstantBitrateSeekingEnabled(true)
+
         val dataSourceFactory = DefaultDataSourceFactory(this, BuildConfig.userAgent)
         val streamUri = Uri.parse(currentPodcastUrl)
-        val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
+        val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory, extractorsFactory)
+            .createMediaSource(streamUri)
         player?.prepare(mediaSource)
     }
 }
