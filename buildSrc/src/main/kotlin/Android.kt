@@ -27,6 +27,8 @@ fun Project.configureAndroid(android: BaseExtension) {
         versionCode = versions[3]
         versionName = extra.string("android.versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled = true
     }
 
 

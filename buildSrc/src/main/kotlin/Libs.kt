@@ -42,6 +42,8 @@ object Libs {
 
     const val com_android_tools_build_gradle: String = "com.android.tools.build:gradle:3.6.0"
 
+    const val androidx_multidex_multidex: String = "androidx.multidex:multidex:2.0.1"
+
     const val androidx_test_runner: String = "androidx.test:runner:1.2.0"
 
     const val io_gitlab_arturbosch_detekt_gradle_plugin: String =
@@ -51,6 +53,8 @@ object Libs {
             "de.fayard.buildSrcVersions:de.fayard.buildSrcVersions.gradle.plugin:0.7.0"
 
     const val push_notifications_android: String = "com.pusher:push-notifications-android:1.6.2"
+
+    const val multidex_instrumentation: String = "androidx.multidex:multidex-instrumentation:2.0.0"
 
     const val firebase_messaging: String = "com.google.firebase:firebase-messaging:18.0.0"
 

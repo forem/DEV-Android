@@ -27,6 +27,8 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(path = ":baseui"))
 
+    implementation(Libs.androidx_multidex_multidex)
+
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
