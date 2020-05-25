@@ -153,9 +153,15 @@ class AudioService : LifecycleService() {
     }
 
     @MainThread
-    fun play() {
+    fun play(audioUrl: String?, seconds: String?) {
+        if (currentPodcastUrl != audioUrl) {
+            currentPodcastUrl = audioUrl
+            preparePlayer()
+            seekTo("0")
+        } else {
+            seekTo(seconds)
+        }
         player?.playWhenReady = true
-        player?.currentWindowIndex
     }
 
     @MainThread
@@ -164,26 +170,39 @@ class AudioService : LifecycleService() {
     }
 
     @MainThread
-    fun mute(muted: Boolean) {
-        if (muted) {
-            player?.volume = 0F
-        } else {
-            player?.volume = 1F
+    fun mute(muted: String?) {
+        muted?.toBoolean()?.let {
+            if (it) {
+                player?.volume = 0F
+            } else {
+                player?.volume = 1F
+            }
         }
     }
 
     @MainThread
-    fun rate(rate: Float) {
-        player?.setPlaybackParameters(PlaybackParameters(rate))
+    fun volume(volume: String?) {
+        volume?.toFloat()?.let {
+            player?.volume = it
+        }
     }
 
     @MainThread
-    fun seekTo(seconds: Float) {
-        player?.seekTo((seconds * 1000F).toLong())
+    fun rate(rate: String?) {
+        rate?.toFloat()?.let {
+            player?.setPlaybackParameters(PlaybackParameters(it))
+        }
     }
 
     @MainThread
-    fun loadMetadata(epName: String, pdName: String, url: String) {
+    fun seekTo(seconds: String?) {
+        seconds?.toFloat()?.let {
+            player?.seekTo((it * 1000F).toLong())
+        }
+    }
+
+    @MainThread
+    fun loadMetadata(epName: String?, pdName: String?, url: String?) {
         episodeName = epName
         podcastName = pdName
         imageUrl = url
