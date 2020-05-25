@@ -30,6 +30,8 @@ dependencies {
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
+    implementation(Libs.eventbus)
+
     implementation(Libs.exoplayer)
     implementation(Libs.extension_mediasession)
     implementation(Libs.firebase_messaging)

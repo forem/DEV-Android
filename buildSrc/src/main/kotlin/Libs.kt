@@ -34,10 +34,6 @@ object Libs {
 
     const val lifecycle_viewmodel: String = "androidx.lifecycle:lifecycle-viewmodel:2.1.0"
 
-    const val multidex_instrumentation: String = "androidx.multidex:multidex-instrumentation:2.0.0"
-
-    const val multidex: String = "androidx.multidex:multidex:2.0.0"
-
     const val com_android_tools_build_gradle: String = "com.android.tools.build:gradle:3.6.0"
 
     const val androidx_test_runner: String = "androidx.test:runner:1.2.0"
@@ -62,7 +58,7 @@ object Libs {
 
     const val appcompat: String = "androidx.appcompat:appcompat:1.1.0"
 
-    const val rxkotlin: String = "io.reactivex.rxjava3:rxkotlin:3.0.0"
+    const val eventbus: String = "org.greenrobot:eventbus:3.2.0"
 
     const val browser: String = "androidx.browser:browser:1.0.0"
 
