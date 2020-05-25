@@ -2,6 +2,7 @@ package to.dev.dev_android.util.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import to.dev.dev_android.base.BuildConfig
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -12,7 +13,7 @@ object NetworkUtils {
     suspend fun isOnline(): Boolean = withContext(Dispatchers.IO) {
         try {
             val timeout = 1500
-            val address = InetSocketAddress("8.8.8.8", 80)
+            val address = InetSocketAddress(BuildConfig.baseHostname, 80)
 
             Socket().apply {
                 connect(address, timeout)
