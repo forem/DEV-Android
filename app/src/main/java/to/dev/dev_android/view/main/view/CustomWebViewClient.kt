@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.webkit.*
 import androidx.browser.customtabs.CustomTabsIntent
@@ -101,6 +102,8 @@ class CustomWebViewClient(
     private fun unregisterNetworkWatcher() {
         networkWatcher?.let {
             context.unregisterReceiver(it)
+
+            networkWatcher = null
         }
     }
 
