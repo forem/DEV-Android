@@ -30,10 +30,10 @@ dependencies {
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
-    implementation("com.google.android.exoplayer:exoplayer:2.11.4")
-    implementation("com.google.android.exoplayer:extension-mediasession:2.11.4")
-    implementation("com.google.firebase:firebase-messaging:18.0.0")
-    implementation("com.pusher:push-notifications-android:1.6.2")
+    implementation(Libs.exoplayer)
+    implementation(Libs.extension_mediasession)
+    implementation(Libs.firebase_messaging)
+    implementation(Libs.push_notifications_android)
 
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
