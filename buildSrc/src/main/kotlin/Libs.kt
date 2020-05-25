@@ -7,6 +7,12 @@ import kotlin.String
  *   `$ ./gradlew buildSrcVersions`
  */
 object Libs {
+    const val kotlinx_coroutines_android: String =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
+
+    const val kotlinx_coroutines_core: String =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+
     const val exoplayer: String = "com.google.android.exoplayer:exoplayer:2.11.4"
 
     const val extension_mediasession: String =
@@ -21,14 +27,14 @@ object Libs {
     const val databinding_runtime: String = "androidx.databinding:databinding-runtime:3.6.0"
 
     const val kotlin_android_extensions: String =
-            "org.jetbrains.kotlin:kotlin-android-extensions:1.3.61"
+            "org.jetbrains.kotlin:kotlin-android-extensions:1.3.71"
 
     const val kotlin_android_extensions_runtime: String =
-            "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.61"
+            "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.71"
 
-    const val kotlin_stdlib_jdk8: String = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61"
+    const val kotlin_stdlib_jdk8: String = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.71"
 
-    const val kotlin_gradle_plugin: String = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61"
+    const val kotlin_gradle_plugin: String = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.71"
 
     const val lifecycle_extensions: String = "androidx.lifecycle:lifecycle-extensions:2.1.0"
 

@@ -30,6 +30,9 @@ dependencies {
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
+    implementation(Libs.kotlinx_coroutines_core)
+    implementation(Libs.kotlinx_coroutines_android)
+
     implementation(Libs.eventbus)
 
     implementation(Libs.exoplayer)
