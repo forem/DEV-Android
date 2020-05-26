@@ -94,6 +94,8 @@ class CustomWebViewClient(
 
     private var networkWatcher: NetworkWatcher? = null
     private fun registerNetworkWatcher() {
+        if (networkWatcher != null) return
+
         unregisterNetworkWatcher()
 
         networkWatcher = NetworkWatcher(coroutineScope)
