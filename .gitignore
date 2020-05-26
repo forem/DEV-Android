@@ -16,8 +16,14 @@ out/
 
 # Gradle files
 .gradle/
+/buildSrc/.gradle
+
+# Build files
 /build
 /buildSrc/build
+/app/build
+/data/build
+/baseui/build
 
 # Local configuration file (sdk path, etc)
 local.properties
