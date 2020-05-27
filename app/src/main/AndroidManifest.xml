@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+            android:name="androidx.multidex.MultiDexApplication"
             android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -14,8 +15,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
-            tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-    >
+            tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
                 android:name=".view.main.view.MainActivity"
                 android:screenOrientation="portrait">

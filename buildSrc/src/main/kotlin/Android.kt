@@ -27,6 +27,8 @@ fun Project.configureAndroid(android: BaseExtension) {
         versionCode = versions[3]
         versionName = extra.string("android.versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled = true
     }
 
 
@@ -40,6 +42,8 @@ fun Project.configureBuildConfig(android: BaseExtension) {
     android.buildTypes.all {
         resValue("string", "baseUrl", extra.string("chrome.baseUrl"))
         buildConfigString("baseUrl", extra.string("chrome.baseUrl"))
+        resValue("string", "baseHostname", extra.string("chrome.baseHostname"))
+        buildConfigString("baseHostname", extra.string("chrome.baseHostname"))
         resValue("string", "pusherInstanceId", extra.string("pusher.instanceId"))
         buildConfigString("pusherInstanceId", extra.string("pusher.instanceId"))
         resValue("string", "userAgent", extra.string("chrome.userAgent"))

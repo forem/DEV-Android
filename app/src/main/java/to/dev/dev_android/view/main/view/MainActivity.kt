@@ -11,6 +11,8 @@ import android.webkit.ValueCallback
 import android.webkit.WebView
 import to.dev.dev_android.R
 import com.pusher.pushnotifications.PushNotifications
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
@@ -18,8 +20,11 @@ import to.dev.dev_android.util.AndroidWebViewBridge
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
     private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
+    private lateinit var webViewClient: CustomWebViewClient
 
     private var filePathCallback: ValueCallback<Array<Uri>>? = null
+
+    private val mainActivityScope = MainScope()
 
     override fun layout(): Int {
         return R.layout.activity_main
@@ -39,6 +44,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
             binding.webView.loadUrl(intent.extras["url"].toString())
         }
         super.onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        webViewClient.observeNetwork()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        webViewClient.unobserveNetwork()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mainActivityScope.cancel()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -69,7 +92,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.userAgentString = BuildConfig.userAgent
 
         binding.webView.addJavascriptInterface(webViewBridge, "AndroidBridge")
-        val webViewClient = CustomWebViewClient(this@MainActivity, binding.webView) {
+        webViewClient = CustomWebViewClient(this@MainActivity, binding.webView, mainActivityScope) {
             binding.splash.visibility = View.GONE
         }
         binding.webView.webViewClient = webViewClient
