@@ -6,17 +6,23 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.View
-import android.webkit.CookieManager
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.browser.customtabs.CustomTabsIntent
 import org.json.JSONObject
 import com.pusher.pushnotifications.PushNotifications
+import kotlinx.coroutines.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import to.dev.dev_android.events.NetworkStatusEvent
+import to.dev.dev_android.util.network.*
 import java.lang.Exception
+import java.lang.Runnable
 
 class CustomWebViewClient(
     private val context: Context,
     private val view: WebView,
+    private val coroutineScope: CoroutineScope,
     private val onPageFinish: () -> Unit
 ) : WebViewClient() {
 
@@ -84,5 +90,67 @@ class CustomWebViewClient(
         view?.post(Runnable {
             view?.evaluateJavascript(javascript, null)
         })
+    }
+
+    private var networkWatcher: NetworkWatcher? = null
+    private fun registerNetworkWatcher() {
+        if (networkWatcher != null) return
+
+        unregisterNetworkWatcher()
+
+        networkWatcher = NetworkWatcher(coroutineScope)
+    }
+
+    private fun unregisterNetworkWatcher() {
+        networkWatcher?.let {
+            context.unregisterReceiver(it)
+
+            networkWatcher = null
+        }
+    }
+
+    override fun onReceivedError(
+        view: WebView?,
+        request: WebResourceRequest?,
+        error: WebResourceError?
+    ) {
+        super.onReceivedError(view, request, error)
+
+        coroutineScope.launch {
+            if (async { NetworkUtils.isOffline() }.await()) {
+                EventBus.getDefault().post(NetworkStatusEvent(NetworkStatus.OFFLINE))
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    fun onNetworkStatusEvent(event: NetworkStatusEvent) {
+        when (event.networkStatus) {
+            NetworkStatus.OFFLINE -> {
+                registerNetworkWatcher()
+
+                context.registerReceiver(networkWatcher, NetworkWatcher.intentFilter)
+            }
+            NetworkStatus.BACK_ONLINE -> {
+                unregisterNetworkWatcher()
+
+                coroutineScope.launch {
+                    withContext(Dispatchers.Main) {
+                        view.reload()
+                    }
+                }
+            }
+        }
+    }
+
+    fun observeNetwork() {
+        EventBus.getDefault().register(this)
+    }
+
+    fun unobserveNetwork() {
+        coroutineScope.cancel()
+        EventBus.getDefault().unregister(this)
+
+        unregisterNetworkWatcher()
     }
 }

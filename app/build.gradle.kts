@@ -27,13 +27,22 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(path = ":baseui"))
 
+    implementation(Libs.androidx_multidex_multidex)
+
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)
 
-    implementation("com.google.android.exoplayer:exoplayer:2.11.4")
-    implementation("com.google.android.exoplayer:extension-mediasession:2.11.4")
-    implementation("com.google.firebase:firebase-messaging:18.0.0")
-    implementation("com.pusher:push-notifications-android:1.6.2")
+    implementation(Libs.kotlinx_coroutines_core)
+    implementation(Libs.kotlinx_coroutines_android)
+
+    implementation(Libs.eventbus)
+
+    implementation(Libs.exoplayer_core)
+    implementation(Libs.exoplayer_ui)
+    implementation(Libs.extension_mediasession)
+    implementation(Libs.firebase_messaging)
+    implementation(Libs.push_notifications_android)
+    implementation(Libs.gson)
 
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
