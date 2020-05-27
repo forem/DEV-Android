@@ -37,10 +37,12 @@ dependencies {
 
     implementation(Libs.eventbus)
 
-    implementation(Libs.exoplayer)
+    implementation(Libs.exoplayer_core)
+    implementation(Libs.exoplayer_ui)
     implementation(Libs.extension_mediasession)
     implementation(Libs.firebase_messaging)
     implementation(Libs.push_notifications_android)
+    implementation(Libs.gson)
 
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)

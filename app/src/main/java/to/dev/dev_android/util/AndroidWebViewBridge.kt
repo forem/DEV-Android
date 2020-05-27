@@ -5,6 +5,7 @@ import android.os.IBinder
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
+import com.google.gson.Gson
 import to.dev.dev_android.media.AudioService
 import to.dev.dev_android.view.main.view.CustomWebViewClient
 import java.util.*
@@ -45,9 +46,27 @@ class AndroidWebViewBridge(private val context: Context) {
     }
 
     @JavascriptInterface
-    fun loadPodcast(url: String) {
+    fun podcastMessage(message: String) {
+        var map: Map<String, String> = HashMap()
+        map = Gson().fromJson(message, map.javaClass)
+        when(map["action"]) {
+            "load" -> loadPodcast(map["url"])
+            "play" -> audioService?.play(map["url"], map["seconds"])
+            "pause" -> audioService?.pause()
+            "seek" -> audioService?.seekTo(map["seconds"])
+            "rate" -> audioService?.rate(map["rate"])
+            "muted" -> audioService?.mute(map["muted"])
+            "volume" -> audioService?.volume(map["volume"])
+            "metadata" -> audioService?.loadMetadata(map["episodeName"], map["podcastName"], map["imageUrl"])
+            "terminate" -> terminatePodcast()
+            else -> logError("Podcast Error", "Unknown action")
+        }
+    }
+
+    fun loadPodcast(url: String?) {
+        if (url == null) return
+
         AudioService.newIntent(context, url).also { intent ->
-            // This service will get converted to foreground service using the PlayerNotificationManager notification Id.
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 
@@ -59,22 +78,6 @@ class AndroidWebViewBridge(private val context: Context) {
         timer.schedule(timeUpdateTask, 0, 1000)
     }
 
-    @JavascriptInterface
-    fun playPodcast(seconds: String) {
-        audioService?.play()
-    }
-
-    @JavascriptInterface
-    fun pausePodcast() {
-        audioService?.pause()
-    }
-
-    @JavascriptInterface
-    fun metadataPodcast(episodeName: String, podcastName: String, imageUrl: String) {
-        audioService?.loadMetadata(episodeName, podcastName, imageUrl)
-    }
-
-    @JavascriptInterface
     fun terminatePodcast() {
         audioService?.pause()
         context.unbindService(connection)
@@ -82,27 +85,17 @@ class AndroidWebViewBridge(private val context: Context) {
         context.stopService(Intent(context, AudioService::class.java))
     }
 
-    @JavascriptInterface
-    fun seekPodcast(seconds: Float) {
-        audioService?.seekTo(seconds)
-    }
-
-    @JavascriptInterface
-    fun ratePodcast(rate: Float) {
-        audioService?.rate(rate)
-    }
-
-    @JavascriptInterface
-    fun mutePodcast(muted: Boolean) {
-        audioService?.mute(muted)
-    }
-
     fun podcastTimeUpdate() {
         audioService?.let {
             val time = it.currentTimeInSec() / 1000
             val duration = it.durationInSec() / 1000
-            val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to time)
-            webViewClient?.sendPodcastMessage(message)
+            if (duration < 0) {
+                // The duration overflows into a negative when waiting to load audio (initializing)
+                webViewClient?.sendPodcastMessage(mapOf("action" to "init"))
+            } else {
+                val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to time)
+                webViewClient?.sendPodcastMessage(message)
+            }
         }
     }
 }

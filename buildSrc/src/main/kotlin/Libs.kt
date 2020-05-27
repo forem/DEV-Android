@@ -13,10 +13,14 @@ object Libs {
     const val kotlinx_coroutines_core: String =
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
 
-    const val exoplayer: String = "com.google.android.exoplayer:exoplayer:2.11.4"
+    const val exoplayer_core: String = "com.google.android.exoplayer:exoplayer-core:2.11.4"
+
+    const val exoplayer_ui: String = "com.google.android.exoplayer:exoplayer-ui:2.11.4"
 
     const val extension_mediasession: String =
             "com.google.android.exoplayer:extension-mediasession:2.11.4"
+
+    const val gson: String = "com.google.code.gson:gson:2.8.6"
 
     const val databinding_adapters: String = "androidx.databinding:databinding-adapters:3.6.0"
 
