@@ -1,24 +1,31 @@
 # Changelog
 
-## [1.4](https://github.com/thepracticaldev/DEV-Android/tree/1.4) (2020-05-01)
+## [1.5](https://github.com/thepracticaldev/DEV-Android/tree/1.5) (2020-05-28)
 
-[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3.1...1.4)
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3.1...1.5)
 
 **Fixed bugs:**
 
+- Login via Twitter issue  [\#82](https://github.com/thepracticaldev/DEV-Android/issues/82)
 - Authentication error with GitHub [\#73](https://github.com/thepracticaldev/DEV-Android/issues/73)
+- Image uploading still doesn't work [\#51](https://github.com/thepracticaldev/DEV-Android/issues/51)
+
+**Closed issues:**
+
+- Duplicate .gitignore files in the repository [\#78](https://github.com/thepracticaldev/DEV-Android/issues/78)
 
 **Merged pull requests:**
 
+- Includes error url to override for twitter authentication [\#83](https://github.com/thepracticaldev/DEV-Android/pull/83) ([fdoxyz](https://github.com/fdoxyz))
+- Removed duplicate .gitignore files and contents merged into one root [\#80](https://github.com/thepracticaldev/DEV-Android/pull/80) ([Rec0iL99](https://github.com/Rec0iL99))
+- Implemented Auto Refresh for WebView [\#77](https://github.com/thepracticaldev/DEV-Android/pull/77) ([nizarmah](https://github.com/nizarmah))
+- Some cleanup and enhancements to the Native Audio implementation [\#75](https://github.com/thepracticaldev/DEV-Android/pull/75) ([fdoxyz](https://github.com/fdoxyz))
+- Reverts changes made to AndroidManifest.xml [\#74](https://github.com/thepracticaldev/DEV-Android/pull/74) ([fdoxyz](https://github.com/fdoxyz))
 - Native Audio Player [\#72](https://github.com/thepracticaldev/DEV-Android/pull/72) ([fdoxyz](https://github.com/fdoxyz))
 
 ## [1.3.1](https://github.com/thepracticaldev/DEV-Android/tree/1.3.1) (2020-04-30)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3...1.3.1)
-
-**Merged pull requests:**
-
-- Reverts changes made to AndroidManifest.xml [\#74](https://github.com/thepracticaldev/DEV-Android/pull/74) ([fdoxyz](https://github.com/fdoxyz))
 
 ## [1.3](https://github.com/thepracticaldev/DEV-Android/tree/1.3) (2020-04-24)
 
@@ -37,7 +44,6 @@
 - Disable backup [\#71](https://github.com/thepracticaldev/DEV-Android/pull/71) ([maestromac](https://github.com/maestromac))
 - Adds native bridge ability to handle "copy to clipboard" requests from JS [\#70](https://github.com/thepracticaldev/DEV-Android/pull/70) ([fdoxyz](https://github.com/fdoxyz))
 - Add methods to implement native copy-to-clipboard functionality. [\#60](https://github.com/thepracticaldev/DEV-Android/pull/60) ([VarunBarad](https://github.com/VarunBarad))
-- The binding should not be passed around [\#57](https://github.com/thepracticaldev/DEV-Android/pull/57) ([sierisimo](https://github.com/sierisimo))
 
 ## [1.2.1](https://github.com/thepracticaldev/DEV-Android/tree/1.2.1) (2020-03-30)
 
@@ -65,6 +71,7 @@
 
 - Upgrade Gradle and runtime dependencies [\#64](https://github.com/thepracticaldev/DEV-Android/pull/64) ([msfjarvis](https://github.com/msfjarvis))
 - Delete removed custom gradle task `clean` from README. [\#59](https://github.com/thepracticaldev/DEV-Android/pull/59) ([VarunBarad](https://github.com/VarunBarad))
+- The binding should not be passed around [\#57](https://github.com/thepracticaldev/DEV-Android/pull/57) ([sierisimo](https://github.com/sierisimo))
 - Adding 'when' to substitute if [\#56](https://github.com/thepracticaldev/DEV-Android/pull/56) ([sierisimo](https://github.com/sierisimo))
 - The 'clean' task is already present [\#55](https://github.com/thepracticaldev/DEV-Android/pull/55) ([sierisimo](https://github.com/sierisimo))
 - Updating versions to latest [\#54](https://github.com/thepracticaldev/DEV-Android/pull/54) ([sierisimo](https://github.com/sierisimo))
