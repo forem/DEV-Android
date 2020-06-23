@@ -9,14 +9,19 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
-import to.dev.dev_android.R
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import to.dev.dev_android.R
 import to.dev.dev_android.base.BuildConfig
 import to.dev.dev_android.base.activity.BaseActivity
 import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
     private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
@@ -98,6 +103,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.webViewClient = webViewClient
         webViewBridge.webViewClient = webViewClient
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
+
+
+//        val streamUri = Uri.parse("https://dw71fyauz7yz9.cloudfront.net/video-upload__fef924c4fad44dcdac1f53178b3ac9b0/video-upload__fef924c4fad44dcdac1f53178b3ac9b0.m3u8")
+//        val dataSourceFactory: DataSource.Factory = DefaultHttpDataSourceFactory(BuildConfig.userAgent)
+//        val mediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
+//        var player: SimpleExoPlayer = SimpleExoPlayer.Builder(this).build()
+//        binding.playerView.player = player
+//        player.prepare(mediaSource)
+//        player.playWhenReady = true
     }
 
     private fun restoreState(savedInstanceState: Bundle) {

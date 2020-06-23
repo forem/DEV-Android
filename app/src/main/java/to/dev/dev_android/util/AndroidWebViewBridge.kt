@@ -63,6 +63,12 @@ class AndroidWebViewBridge(private val context: Context) {
         }
     }
 
+    @JavascriptInterface
+    fun playVideo(url: String, seconds: Int) {
+        Log.i("VIDEO", url)
+        Log.i("VIDEO", seconds.toString())
+    }
+
     fun loadPodcast(url: String?) {
         if (url == null) return
 

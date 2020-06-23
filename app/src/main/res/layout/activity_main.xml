@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -25,6 +27,15 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"
+                android:visibility="gone"
+                app:show_buffering="when_playing"
+                app:show_shuffle_button="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

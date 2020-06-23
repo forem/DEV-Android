@@ -39,6 +39,7 @@ dependencies {
 
     implementation(Libs.exoplayer_core)
     implementation(Libs.exoplayer_ui)
+    implementation(Libs.exoplayer_hls)
     implementation(Libs.extension_mediasession)
     implementation(Libs.firebase_messaging)
     implementation(Libs.push_notifications_android)

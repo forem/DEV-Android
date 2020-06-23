@@ -17,6 +17,8 @@ object Libs {
 
     const val exoplayer_ui: String = "com.google.android.exoplayer:exoplayer-ui:2.11.4"
 
+    const val exoplayer_hls: String = "com.google.android.exoplayer:exoplayer-hls:2.11.4"
+
     const val extension_mediasession: String =
             "com.google.android.exoplayer:extension-mediasession:2.11.4"
 
