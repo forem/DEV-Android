@@ -27,7 +27,6 @@ class CustomWebViewClient(
 
     private val overrideUrlList = listOf(
         "://dev.to",
-        "fdoxyz.ngrok.io",
         "api.twitter.com/oauth",
         "api.twitter.com/login/error",
         "api.twitter.com/account/login_verification",
