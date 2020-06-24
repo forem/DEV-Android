@@ -5,9 +5,11 @@ import android.os.IBinder
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.Gson
 import to.dev.dev_android.media.AudioService
 import to.dev.dev_android.view.main.view.CustomWebViewClient
+import to.dev.dev_android.view.main.view.VideoPlayerActivity
 import java.util.*
 
 class AndroidWebViewBridge(private val context: Context) {
@@ -64,9 +66,11 @@ class AndroidWebViewBridge(private val context: Context) {
     }
 
     @JavascriptInterface
-    fun playVideo(url: String, seconds: Int) {
+    fun playVideo(url: String, seconds: String) {
         Log.i("VIDEO", url)
         Log.i("VIDEO", seconds.toString())
+        val intent = VideoPlayerActivity.newIntent(context, url, seconds)
+        context.startActivity(intent)
     }
 
     fun loadPodcast(url: String?) {
