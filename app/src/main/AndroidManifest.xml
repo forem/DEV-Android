@@ -16,7 +16,10 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".activities.VideoPlayerActivity"></activity>
+        <activity
+                android:name=".activities.VideoPlayerActivity"
+                android:configChanges="orientation|screenSize|layoutDirection">
+        </activity>
         <activity
                 android:name=".activities.MainActivity"
                 android:screenOrientation="portrait">

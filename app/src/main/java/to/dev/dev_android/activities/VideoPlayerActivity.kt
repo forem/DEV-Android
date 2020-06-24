@@ -15,6 +15,8 @@ import to.dev.dev_android.databinding.ActivityVideoPlayerBinding
 
 class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>() {
 
+    private var player: SimpleExoPlayer? = null
+
     override fun layout(): Int {
         return R.layout.activity_video_player
     }
@@ -26,14 +28,19 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>() {
         val videoTime = intent.getStringExtra(argVideoTime)
 
         val streamUri= Uri.parse(videoUrl)
-        val dataSourceFactory: DataSource.Factory =
-            DefaultHttpDataSourceFactory(BuildConfig.userAgent)
+        val dataSourceFactory: DataSource.Factory = DefaultHttpDataSourceFactory(BuildConfig.userAgent)
         val mediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(streamUri)
-        var player: SimpleExoPlayer = SimpleExoPlayer.Builder(this).build()
+
+        player = SimpleExoPlayer.Builder(this).build()
         binding.playerView.player = player
-        player.prepare(mediaSource)
-        player.seekTo(videoTime.toLong() * 1000)
-        player.playWhenReady = true
+        player?.prepare(mediaSource)
+        player?.seekTo(videoTime.toLong() * 1000)
+        player?.playWhenReady = true
+    }
+
+    override fun onDestroy() {
+        player?.playWhenReady = false
+        super.onDestroy()
     }
 
     companion object {

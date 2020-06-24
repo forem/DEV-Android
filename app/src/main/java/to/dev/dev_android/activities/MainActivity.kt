@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatActivity
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -17,8 +16,8 @@ import to.dev.dev_android.R
 import to.dev.dev_android.BuildConfig
 import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
-import to.dev.dev_android.view.main.view.CustomWebChromeClient
-import to.dev.dev_android.view.main.view.CustomWebViewClient
+import to.dev.dev_android.webclients.CustomWebChromeClient
+import to.dev.dev_android.webclients.CustomWebViewClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
     private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
@@ -62,6 +61,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
     override fun onDestroy() {
         super.onDestroy()
+
+        // Make sure we're not leaving any audio playing behind
+        webViewBridge.terminatePodcast()
 
         mainActivityScope.cancel()
     }

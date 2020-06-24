@@ -16,8 +16,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimaryDark"
-                app:show_buffering="when_playing"
-                app:show_shuffle_button="true"/>
+                app:surface_type="texture_view"
+                app:show_buffering="when_playing"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
