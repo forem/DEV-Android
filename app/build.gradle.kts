@@ -6,6 +6,7 @@ plugins {
 
 android {
     configureAndroid(this)
+    configureBuildConfig(this)
 
     buildTypes {
         getByName("release") {
@@ -20,12 +21,10 @@ android {
     dataBinding {
         isEnabled = true
     }
-
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(path = ":baseui"))
 
     implementation(Libs.androidx_multidex_multidex)
 
@@ -44,6 +43,11 @@ dependencies {
     implementation(Libs.firebase_messaging)
     implementation(Libs.push_notifications_android)
     implementation(Libs.gson)
+
+    api(Libs.appcompat)
+    api(Libs.constraintlayout)
+    api(Libs.lifecycle_extensions)
+    api(Libs.lifecycle_viewmodel)
 
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)

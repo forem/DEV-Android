@@ -2,7 +2,7 @@ package to.dev.dev_android.util.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import to.dev.dev_android.base.BuildConfig
+import to.dev.dev_android.BuildConfig
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket

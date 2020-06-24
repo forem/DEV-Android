@@ -5,11 +5,10 @@ import android.os.IBinder
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.Gson
 import to.dev.dev_android.media.AudioService
 import to.dev.dev_android.view.main.view.CustomWebViewClient
-import to.dev.dev_android.view.main.view.VideoPlayerActivity
+import to.dev.dev_android.activities.VideoPlayerActivity
 import java.util.*
 
 class AndroidWebViewBridge(private val context: Context) {

@@ -1,4 +1,4 @@
-package to.dev.dev_android.view.main.view
+package to.dev.dev_android.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,15 +9,16 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
+import androidx.appcompat.app.AppCompatActivity
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import to.dev.dev_android.R
-import to.dev.dev_android.base.BuildConfig
-import to.dev.dev_android.base.activity.BaseActivity
+import to.dev.dev_android.BuildConfig
 import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
-
+import to.dev.dev_android.view.main.view.CustomWebChromeClient
+import to.dev.dev_android.view.main.view.CustomWebViewClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
     private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
@@ -93,12 +94,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.userAgentString = BuildConfig.userAgent
 
         binding.webView.addJavascriptInterface(webViewBridge, "AndroidBridge")
-        webViewClient = CustomWebViewClient(this@MainActivity, binding.webView, mainActivityScope) {
+        webViewClient = CustomWebViewClient(
+            this@MainActivity,
+            binding.webView,
+            mainActivityScope
+        ) {
             binding.splash.visibility = View.GONE
         }
         binding.webView.webViewClient = webViewClient
         webViewBridge.webViewClient = webViewClient
-        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
+        binding.webView.webChromeClient =
+            CustomWebChromeClient(
+                BuildConfig.baseUrl,
+                this
+            )
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
