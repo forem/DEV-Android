@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
@@ -36,13 +37,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         setWebViewSettings()
         savedInstanceState?.let { restoreState(it) } ?: navigateToHome()
         handleIntent(intent)
-        PushNotifications.start(getApplicationContext(), BuildConfig.pusherInstanceId);
-        PushNotifications.addDeviceInterest("broadcast");
+        PushNotifications.start(applicationContext, BuildConfig.pusherInstanceId)
+        PushNotifications.addDeviceInterest("broadcast")
     }
 
     override fun onResume() {
         if (intent.extras != null && intent.extras["url"] != null) {
-            binding.webView.loadUrl(intent.extras["url"].toString())
+            val targetUrl = intent.extras["url"].toString()
+            try {
+                val targetHost = Uri.parse(targetUrl).host ?: ""
+                if (targetHost.contains(BuildConfig.baseHostname)) {
+                    binding.webView.loadUrl(targetUrl)
+                }
+            } catch (e: Exception) {
+                Log.e(LOG_TAG, e.message)
+            }
         }
         super.onResume()
     }
@@ -80,7 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
     private fun handleIntent(intent: Intent) {
         val appLinkData: Uri? = intent.data
-        if (appLinkData != null) {
+        if (appLinkData != null && appLinkData.host.contains(BuildConfig.baseHostname)) {
             binding.webView.loadUrl(appLinkData.toString())
         }
     }
@@ -164,5 +173,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
     companion object {
         private const val PIC_CHOOSER_REQUEST = 100
+        private const val LOG_TAG = "MainActivity"
     }
 }
