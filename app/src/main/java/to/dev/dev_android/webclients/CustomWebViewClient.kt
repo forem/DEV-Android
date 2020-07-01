@@ -136,7 +136,7 @@ class CustomWebViewClient(
 
                 coroutineScope.launch {
                     withContext(Dispatchers.Main) {
-                        view.reload()
+                        view.loadUrl(view.url)
                     }
                 }
             }

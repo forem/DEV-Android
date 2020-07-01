@@ -53,18 +53,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
                 Log.e(LOG_TAG, e.message)
             }
         }
+
         super.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         webViewClient.observeNetwork()
     }
 
     override fun onStop() {
         super.onStop()
-
         webViewClient.unobserveNetwork()
     }
 
@@ -74,6 +69,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         // Make sure we're not leaving any audio playing behind
         webViewBridge.terminatePodcast()
 
+        // Coroutine cleanup
         mainActivityScope.cancel()
     }
 
@@ -114,11 +110,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         }
         binding.webView.webViewClient = webViewClient
         webViewBridge.webViewClient = webViewClient
-        binding.webView.webChromeClient =
-            CustomWebChromeClient(
-                BuildConfig.baseUrl,
-                this
-            )
+        binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
