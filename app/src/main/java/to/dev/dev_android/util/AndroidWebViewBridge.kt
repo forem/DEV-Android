@@ -7,7 +7,8 @@ import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.google.gson.Gson
 import to.dev.dev_android.media.AudioService
-import to.dev.dev_android.view.main.view.CustomWebViewClient
+import to.dev.dev_android.webclients.CustomWebViewClient
+import to.dev.dev_android.activities.VideoPlayerActivity
 import java.util.*
 
 class AndroidWebViewBridge(private val context: Context) {
@@ -61,6 +62,16 @@ class AndroidWebViewBridge(private val context: Context) {
             "terminate" -> terminatePodcast()
             else -> logError("Podcast Error", "Unknown action")
         }
+    }
+
+    @JavascriptInterface
+    fun playVideo(url: String, seconds: String) {
+        // Pause the audio player in case the user is currently listening to a audio (podcast)
+        audioService?.pause()
+
+        // Launch VideoPlayerActivity
+        val intent = VideoPlayerActivity.newIntent(context, url, seconds)
+        context.startActivity(intent)
     }
 
     fun loadPodcast(url: String?) {

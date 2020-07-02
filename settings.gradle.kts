@@ -1,1 +1,1 @@
-include(":app", ":baseui", ":data")
+include(":app")

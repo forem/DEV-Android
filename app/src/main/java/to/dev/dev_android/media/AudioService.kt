@@ -22,7 +22,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import to.dev.dev_android.R
-import to.dev.dev_android.base.BuildConfig
+import to.dev.dev_android.BuildConfig
 
 class AudioService : LifecycleService() {
     private val binder = AudioServiceBinder()

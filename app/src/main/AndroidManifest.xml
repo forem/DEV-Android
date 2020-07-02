@@ -17,7 +17,11 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
-                android:name=".view.main.view.MainActivity"
+                android:name=".activities.VideoPlayerActivity"
+                android:configChanges="orientation|screenSize|layoutDirection">
+        </activity>
+        <activity
+                android:name=".activities.MainActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

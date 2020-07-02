@@ -1,4 +1,4 @@
-package to.dev.dev_android.view.main.view
+package to.dev.dev_android.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -10,14 +10,15 @@ import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
-import to.dev.dev_android.R
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import to.dev.dev_android.base.BuildConfig
-import to.dev.dev_android.base.activity.BaseActivity
+import to.dev.dev_android.R
+import to.dev.dev_android.BuildConfig
 import to.dev.dev_android.databinding.ActivityMainBinding
 import to.dev.dev_android.util.AndroidWebViewBridge
+import to.dev.dev_android.webclients.CustomWebChromeClient
+import to.dev.dev_android.webclients.CustomWebViewClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.CustomListener {
     private val webViewBridge: AndroidWebViewBridge = AndroidWebViewBridge(this)
@@ -52,24 +53,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
                 Log.e(LOG_TAG, e.message)
             }
         }
+
         super.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         webViewClient.observeNetwork()
     }
 
     override fun onStop() {
         super.onStop()
-
         webViewClient.unobserveNetwork()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
+        // Make sure we're not leaving any audio playing behind
+        webViewBridge.terminatePodcast()
+
+        // Coroutine cleanup
         mainActivityScope.cancel()
     }
 
@@ -101,7 +101,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         binding.webView.settings.userAgentString = BuildConfig.userAgent
 
         binding.webView.addJavascriptInterface(webViewBridge, "AndroidBridge")
-        webViewClient = CustomWebViewClient(this@MainActivity, binding.webView, mainActivityScope) {
+        webViewClient = CustomWebViewClient(
+            this@MainActivity,
+            binding.webView,
+            mainActivityScope
+        ) {
             binding.splash.visibility = View.GONE
         }
         binding.webView.webViewClient = webViewClient

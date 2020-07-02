@@ -1,10 +1,9 @@
-package to.dev.dev_android.view.main.view
+package to.dev.dev_android.webclients
 
 import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.webkit.*
 import androidx.browser.customtabs.CustomTabsIntent
@@ -137,7 +136,7 @@ class CustomWebViewClient(
 
                 coroutineScope.launch {
                     withContext(Dispatchers.Main) {
-                        view.reload()
+                        view.loadUrl(view.url)
                     }
                 }
             }
