@@ -6,15 +6,20 @@ import android.util.Log
 import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.google.gson.Gson
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import to.dev.dev_android.activities.VideoPlayerActivity
+import to.dev.dev_android.events.VideoPlayerPauseEvent
+import to.dev.dev_android.events.VideoPlayerTickEvent
 import to.dev.dev_android.media.AudioService
 import to.dev.dev_android.webclients.CustomWebViewClient
-import to.dev.dev_android.activities.VideoPlayerActivity
 import java.util.*
 
 class AndroidWebViewBridge(private val context: Context) {
 
     var webViewClient: CustomWebViewClient? = null
-    private val timer = Timer()
+    private var timer: Timer? = null
 
     // audioService is initialized when onServiceConnected is executed after/during binding is done
     private var audioService: AudioService? = null
@@ -65,13 +70,27 @@ class AndroidWebViewBridge(private val context: Context) {
     }
 
     @JavascriptInterface
-    fun playVideo(url: String, seconds: String) {
-        // Pause the audio player in case the user is currently listening to a audio (podcast)
-        audioService?.pause()
+    fun videoMessage(message: String) {
+        var map: Map<String, String> = HashMap()
+        map = Gson().fromJson(message, map.javaClass)
+        when(map["action"]) {
+            "play" -> playVideo(map["url"], map["seconds"])
+            else -> logError("Video Error", "Unknown action")
+        }
+    }
 
-        // Launch VideoPlayerActivity
-        val intent = VideoPlayerActivity.newIntent(context, url, seconds)
-        context.startActivity(intent)
+    fun playVideo(url: String?, seconds: String?) {
+        url?.let {
+            // Pause the audio player in case the user is currently listening to a audio (podcast)
+            audioService?.pause()
+            timer?.cancel()
+
+            // Launch VideoPlayerActivity
+            val intent = VideoPlayerActivity.newIntent(context, url, seconds ?: "0")
+            context.startActivity(intent)
+
+            EventBus.getDefault().register(this)
+        }
     }
 
     fun loadPodcast(url: String?) {
@@ -81,15 +100,20 @@ class AndroidWebViewBridge(private val context: Context) {
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 
+        // Clear out lingering timer if it exists & recreate
+        timer?.cancel()
+        timer = Timer()
         val timeUpdateTask = object: TimerTask() {
             override fun run() {
                 podcastTimeUpdate()
             }
         }
-        timer.schedule(timeUpdateTask, 0, 1000)
+        timer?.schedule(timeUpdateTask, 0, 1000)
     }
 
     fun terminatePodcast() {
+        timer?.cancel()
+        timer = null
         audioService?.pause()
         context.unbindService(connection)
         audioService = null
@@ -102,11 +126,23 @@ class AndroidWebViewBridge(private val context: Context) {
             val duration = it.durationInSec() / 1000
             if (duration < 0) {
                 // The duration overflows into a negative when waiting to load audio (initializing)
-                webViewClient?.sendPodcastMessage(mapOf("action" to "init"))
+                webViewClient?.sendBridgeMessage("podcast", mapOf("action" to "init"))
             } else {
                 val message = mapOf("action" to "tick", "duration" to duration, "currentTime" to time)
-                webViewClient?.sendPodcastMessage(message)
+                webViewClient?.sendBridgeMessage("podcast", message)
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: VideoPlayerPauseEvent) {
+        webViewClient?.sendBridgeMessage("video", mapOf("action" to event.action))
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: VideoPlayerTickEvent) {
+        val message = mapOf("action" to event.action, "currentTime" to event.seconds)
+        webViewClient?.sendBridgeMessage("video", message)
     }
 }

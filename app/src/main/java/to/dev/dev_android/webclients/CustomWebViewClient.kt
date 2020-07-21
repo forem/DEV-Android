@@ -84,9 +84,14 @@ class CustomWebViewClient(
         return true
     }
 
-    fun sendPodcastMessage(message: Map<String, Any>) {
+    fun sendBridgeMessage(type: String, message: Map<String, Any>) {
         val jsonMessage = JSONObject(message).toString()
-        val javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
+        var javascript = ""
+        when(type) {
+            "podcast" -> javascript = "document.getElementById('audiocontent').setAttribute('data-podcast', '$jsonMessage')"
+            "video" -> javascript = "document.getElementById('video-player-source').setAttribute('data-message', '$jsonMessage')"
+            else -> return
+        }
         view?.post(Runnable {
             view?.evaluateJavascript(javascript, null)
         })

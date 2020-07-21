@@ -15,8 +15,6 @@ abstract class BaseActivity<B: ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        Log.i("LOLZ", this.javaClass.toString())
-//        Log.i("LOLZ", layout().toString())
         binding = DataBindingUtil.setContentView(this, layout())
     }
 
