@@ -1,13 +1,30 @@
 # Changelog
 
-## [1.5](https://github.com/thepracticaldev/DEV-Android/tree/1.5) (2020-05-28)
+## [1.4.1-11](https://github.com/thepracticaldev/DEV-Android/tree/1.4.1-11) (2020-07-21)
 
-[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3.1...1.5)
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4.1...1.4.1-11)
+
+**Fixed bugs:**
+
+- Can't play video on google pixel [\#86](https://github.com/thepracticaldev/DEV-Android/issues/86)
+
+**Closed issues:**
+
+- Title [\#84](https://github.com/thepracticaldev/DEV-Android/issues/84)
+
+**Merged pull requests:**
+
+- Support for video messaging back into the DOM & other enhancements [\#92](https://github.com/thepracticaldev/DEV-Android/pull/92) ([fdoxyz](https://github.com/fdoxyz))
+- Native video streaming support [\#90](https://github.com/thepracticaldev/DEV-Android/pull/90) ([fdoxyz](https://github.com/fdoxyz))
+- Filter incoming URL data from MainActivity intent handling [\#89](https://github.com/thepracticaldev/DEV-Android/pull/89) ([fdoxyz](https://github.com/fdoxyz))
+
+## [1.4.1](https://github.com/thepracticaldev/DEV-Android/tree/1.4.1) (2020-05-29)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4...1.4.1)
 
 **Fixed bugs:**
 
 - Login via Twitter issue  [\#82](https://github.com/thepracticaldev/DEV-Android/issues/82)
-- Authentication error with GitHub [\#73](https://github.com/thepracticaldev/DEV-Android/issues/73)
 - Image uploading still doesn't work [\#51](https://github.com/thepracticaldev/DEV-Android/issues/51)
 
 **Closed issues:**
@@ -20,12 +37,26 @@
 - Removed duplicate .gitignore files and contents merged into one root [\#80](https://github.com/thepracticaldev/DEV-Android/pull/80) ([Rec0iL99](https://github.com/Rec0iL99))
 - Implemented Auto Refresh for WebView [\#77](https://github.com/thepracticaldev/DEV-Android/pull/77) ([nizarmah](https://github.com/nizarmah))
 - Some cleanup and enhancements to the Native Audio implementation [\#75](https://github.com/thepracticaldev/DEV-Android/pull/75) ([fdoxyz](https://github.com/fdoxyz))
-- Reverts changes made to AndroidManifest.xml [\#74](https://github.com/thepracticaldev/DEV-Android/pull/74) ([fdoxyz](https://github.com/fdoxyz))
+
+## [1.4](https://github.com/thepracticaldev/DEV-Android/tree/1.4) (2020-05-01)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3.1...1.4)
+
+**Fixed bugs:**
+
+- Authentication error with GitHub [\#73](https://github.com/thepracticaldev/DEV-Android/issues/73)
+
+**Merged pull requests:**
+
 - Native Audio Player [\#72](https://github.com/thepracticaldev/DEV-Android/pull/72) ([fdoxyz](https://github.com/fdoxyz))
 
 ## [1.3.1](https://github.com/thepracticaldev/DEV-Android/tree/1.3.1) (2020-04-30)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.3...1.3.1)
+
+**Merged pull requests:**
+
+- Reverts changes made to AndroidManifest.xml [\#74](https://github.com/thepracticaldev/DEV-Android/pull/74) ([fdoxyz](https://github.com/fdoxyz))
 
 ## [1.3](https://github.com/thepracticaldev/DEV-Android/tree/1.3) (2020-04-24)
 
