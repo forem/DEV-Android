@@ -76,6 +76,8 @@ object Libs {
 
     const val eventbus: String = "org.greenrobot:eventbus:3.2.0"
 
+    const val eventbus_annotation_processor: String = "org.greenrobot:eventbus-annotation-processor:3.2.0"
+
     const val browser: String = "androidx.browser:browser:1.0.0"
 
     const val aapt2: String = "com.android.tools.build:aapt2:3.5.3-5435860"
