@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
 }
 
 android {
@@ -35,6 +36,7 @@ dependencies {
     implementation(Libs.kotlinx_coroutines_android)
 
     implementation(Libs.eventbus)
+    kapt(Libs.eventbus_annotation_processor)
 
     implementation(Libs.exoplayer_core)
     implementation(Libs.exoplayer_ui)
@@ -52,6 +54,13 @@ dependencies {
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.androidx_test_runner)
     androidTestImplementation(Libs.espresso_core)
+}
+
+kapt {
+
+    arguments {
+        arg("eventBusIndex", "to.dev.dev_android.webclients.EventBusClientIndex")
+    }
 }
 
 apply(plugin = "com.google.gms.google-services")

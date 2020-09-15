@@ -149,6 +149,8 @@ class CustomWebViewClient(
     }
 
     fun observeNetwork() {
+        if(EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
         EventBus.getDefault().register(this)
     }
 
