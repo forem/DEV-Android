@@ -79,15 +79,9 @@ tasks.named<Wrapper>("wrapper") {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-tasks.register("githubAction") {
-    // tasks to run before ./githubAction
+tasks.register("runOnGitHub") {
+    // Documentation: https://guides.gradle.org/writing-gradle-tasks/
     dependsOn(":app:testDebugUnitTest")
     group = "custom"
-    description = """
-        GitHub Action is configured in
-            ./github/workflows/android.yml   
-        to run on each commit
-           $ ./gradlew githubAction
-        This task will run the unit tests     
-        """".trimIndent()
+    description = "$ ./gradlew runOnGitHub # runs on GitHub Action"
 }

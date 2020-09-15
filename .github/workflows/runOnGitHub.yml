@@ -1,6 +1,9 @@
-# .github/workflows/android.yml
-# https://github.com/marketplace/actions/gradle-command
-name: Android unit tests
+# .github/workflows/runOnGitHub.yml
+# GitHub Actions documentation
+# => https://docs.github.com/en/actions
+# Execute Gradle commands in GitHub Actions workflows
+# => https://github.com/marketplace/actions/gradle-command
+name: runOnGitHub
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -21,4 +24,4 @@ jobs:
           java-version: 8
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: githubAction
+          arguments: runOnGitHub
