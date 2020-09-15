@@ -43,7 +43,7 @@ class AndroidWebViewBridge(private val context: Context) {
     fun copyToClipboard(copyText: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
         val clipData = ClipData.newPlainText("DEV Community", copyText)
-        clipboard?.primaryClip = clipData
+        clipboard?.setPrimaryClip(clipData)
     }
 
     @JavascriptInterface

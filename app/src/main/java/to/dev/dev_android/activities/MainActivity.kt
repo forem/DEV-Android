@@ -42,8 +42,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     }
 
     override fun onResume() {
-        if (intent.extras != null && intent.extras["url"] != null) {
-            val targetUrl = intent.extras["url"].toString()
+        if (intent.extras != null && intent.extras!!["url"] != null) {
+            val targetUrl = intent.extras!!["url"].toString()
             try {
                 val targetHost = Uri.parse(targetUrl).host ?: ""
                 if (targetHost.contains(BuildConfig.baseHostname)) {
@@ -85,7 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
 
     private fun handleIntent(intent: Intent) {
         val appLinkData: Uri? = intent.data
-        if (appLinkData != null && appLinkData.host.contains(BuildConfig.baseHostname)) {
+        appLinkData?.host?.let {
             binding.webView.loadUrl(appLinkData.toString())
         }
     }
