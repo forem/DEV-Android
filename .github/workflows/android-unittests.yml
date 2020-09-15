@@ -6,9 +6,9 @@ name: Android unit tests
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 jobs:
   gradle:
     runs-on: ubuntu-latest
