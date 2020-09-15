@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.2](https://github.com/thepracticaldev/DEV-Android/tree/1.4.2) (2020-09-15)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4.1-11...1.4.2)
+
+**Fixed bugs:**
+
+- Web Share API not working [\#11](https://github.com/thepracticaldev/DEV-Android/issues/11)
+
+**Merged pull requests:**
+
+- Bumps targetSdkVersion to support API 29 [\#101](https://github.com/thepracticaldev/DEV-Android/pull/101) ([fdoxyz](https://github.com/fdoxyz))
+- \#94 fixed event bus related app crushing issue on Android 5.0 Lollipop [\#96](https://github.com/thepracticaldev/DEV-Android/pull/96) ([bluetoothfx](https://github.com/bluetoothfx))
+- Add method to open native share sheet from within web-view. [\#61](https://github.com/thepracticaldev/DEV-Android/pull/61) ([VarunBarad](https://github.com/VarunBarad))
+
 ## [1.4.1-11](https://github.com/thepracticaldev/DEV-Android/tree/1.4.1-11) (2020-07-21)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4.1...1.4.1-11)
