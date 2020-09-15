@@ -1,8 +1,6 @@
 # .github/workflows/runOnGitHub.yml
 # GitHub Actions documentation
 # => https://docs.github.com/en/actions
-# Execute Gradle commands in GitHub Actions workflows
-# => https://github.com/marketplace/actions/gradle-command
 name: runOnGitHub
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -22,6 +20,12 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 8
+
+      # Execute Gradle commands in GitHub Actions workflows
+      # => https://github.com/marketplace/actions/gradle-command
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: runOnGitHub
+          wrapper-cache-enabled: true
+          dependencies-cache-enabled: true
+          configuration-cache-enabled: true
