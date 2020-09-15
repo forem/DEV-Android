@@ -1,0 +1,24 @@
+# .github/workflows/android.yml
+# https://github.com/marketplace/actions/gradle-command
+name: Android unit tests
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Copy fake google-services.json
+        run:           cp -f .github/fake-google-services.json app/google-services.json
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: githubAction

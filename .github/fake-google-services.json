@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1092521184945",
+    "firebase_url": "https://dev-personal-XXX.firebaseio.com",
+    "project_id": "dev-personal-XXX",
+    "storage_bucket": "dev-personal-XXX.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092521184945:android:af137629aab59de5af1c90",
+        "android_client_info": {
+          "package_name": "to.dev.dev_android.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "XX.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "XXX"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "XXX.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
