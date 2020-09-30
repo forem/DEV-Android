@@ -78,3 +78,10 @@ detekt {
 tasks.named<Wrapper>("wrapper") {
     distributionType = Wrapper.DistributionType.ALL
 }
+
+tasks.register("runOnGitHub") {
+    // Documentation: https://guides.gradle.org/writing-gradle-tasks/
+    dependsOn(":app:testDebugUnitTest")
+    group = "custom"
+    description = "$ ./gradlew runOnGitHub # runs on GitHub Action"
+}
