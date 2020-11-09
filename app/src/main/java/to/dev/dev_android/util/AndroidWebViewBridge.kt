@@ -114,10 +114,12 @@ class AndroidWebViewBridge(private val context: Context) {
     fun terminatePodcast() {
         timer?.cancel()
         timer = null
-        audioService?.pause()
-        context.unbindService(connection)
-        audioService = null
-        context.stopService(Intent(context, AudioService::class.java))
+        audioService?.let {
+            it.pause()
+            context.unbindService(connection)
+            context.stopService(Intent(context, AudioService::class.java))
+            audioService = null
+        }
     }
 
     fun podcastTimeUpdate() {
