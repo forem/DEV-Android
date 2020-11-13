@@ -15,7 +15,6 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 android {
     configureAndroid(this)
     configureBuildConfig(this)
-
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"].toString()
@@ -29,6 +28,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
