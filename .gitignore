@@ -90,3 +90,11 @@ reports/
 
 # Firebase config
 app/google-services.json
+
+# Google's service account user
+google-service-account-user.json
+
+# Fastlane
+fastlane/README.md
+fastlane/metadata/
+fastlane/*.xml
