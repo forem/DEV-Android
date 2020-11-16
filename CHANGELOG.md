@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.5.0](https://github.com/thepracticaldev/DEV-Android/tree/1.5.0) (2020-11-16)
+
+[Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4.2...1.5.0)
+
+**Fixed bugs:**
+
+- App crashing upon trying to login [\#98](https://github.com/thepracticaldev/DEV-Android/issues/98)
+- App crashes immediately \(can't open\) - Android 5.0 Lollipop [\#94](https://github.com/thepracticaldev/DEV-Android/issues/94)
+- Add a Swipe to Refresh option [\#76](https://github.com/thepracticaldev/DEV-Android/issues/76)
+- Title "MY READING LIST \(EMPTY\) is clipped on the navigation menu [\#17](https://github.com/thepracticaldev/DEV-Android/issues/17)
+
+**Closed issues:**
+
+- App crashes after closing it [\#106](https://github.com/thepracticaldev/DEV-Android/issues/106)
+- Android app is broken [\#105](https://github.com/thepracticaldev/DEV-Android/issues/105)
+- Bump the project minimum SDK API [\#88](https://github.com/thepracticaldev/DEV-Android/issues/88)
+- Push Notification [\#10](https://github.com/thepracticaldev/DEV-Android/issues/10)
+
+**Merged pull requests:**
+
+- Removes duplicate ic\_launcher\_foreground.xml [\#114](https://github.com/thepracticaldev/DEV-Android/pull/114) ([fdoxyz](https://github.com/fdoxyz))
+- .gitignore bump [\#112](https://github.com/thepracticaldev/DEV-Android/pull/112) ([fdoxyz](https://github.com/fdoxyz))
+- Setup fastlane for CI/CD [\#110](https://github.com/thepracticaldev/DEV-Android/pull/110) ([maestromac](https://github.com/maestromac))
+- Updates Gradle Wrapper from 6.2.1 to 6.7 [\#109](https://github.com/thepracticaldev/DEV-Android/pull/109) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Fix bug on MainActivity onDestro. App crashes when closing the app with back button [\#107](https://github.com/thepracticaldev/DEV-Android/pull/107) ([fdoxyz](https://github.com/fdoxyz))
+- Bumped minSdkVersion to 21 [\#104](https://github.com/thepracticaldev/DEV-Android/pull/104) ([Stuie](https://github.com/Stuie))
+- Add workflow for Update Gradle Wrapper Action [\#102](https://github.com/thepracticaldev/DEV-Android/pull/102) ([cristiangreco](https://github.com/cristiangreco))
+-  🏗 Setup a GitHub Action using Gradle to run the unit tests \#2  [\#100](https://github.com/thepracticaldev/DEV-Android/pull/100) ([jmfayard](https://github.com/jmfayard))
+
 ## [1.4.2](https://github.com/thepracticaldev/DEV-Android/tree/1.4.2) (2020-09-15)
 
 [Full Changelog](https://github.com/thepracticaldev/DEV-Android/compare/1.4.1-11...1.4.2)
