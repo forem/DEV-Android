@@ -47,7 +47,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.androidx_multidex_multidex)
+    implementation(Libs.multidex)
 
     implementation(Libs.kotlin_stdlib_jdk8)
     implementation(Libs.browser)

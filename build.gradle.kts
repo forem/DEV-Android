@@ -16,8 +16,7 @@ buildscript {
     }
 }
 plugins {
-    buildSrcVersions
-    detekt
+  id("io.gitlab.arturbosch.detekt") version "1.1.1"
 }
 
 allprojects {
@@ -27,11 +26,6 @@ allprojects {
     }
 }
 
-/** Update Gradle with: $ ./gradlew buildSrcVersions && ./gradlew wrapper   ***/
-tasks.wrapper {
-    gradleVersion = Versions.gradleLatestVersion
-    distributionType = Wrapper.DistributionType.ALL
-}
 
 tasks.register("hello") {
     group = "custom"
@@ -51,11 +45,6 @@ tasks.register("androidTest") {
     group = "custom"
     description = "Run android instrumentation tests"
     dependsOn(":app:connectedDebugAndroidTest")
-}
-
-// Plugin documentation available at https://github.com/jmfayard/buildSrcVersions/issues/53
-buildSrcVersions {
-    indent = "    "
 }
 
 detekt {
