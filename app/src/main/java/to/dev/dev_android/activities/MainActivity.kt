@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
+import android.widget.Toast
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -107,10 +108,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
             mainActivityScope
         ) {
             binding.splash.visibility = View.GONE
+            showForemAppAlert()
         }
         binding.webView.webViewClient = webViewClient
         webViewBridge.webViewClient = webViewClient
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
+    }
+
+    private fun showForemAppAlert() {
+        ForemAppDialog().show(supportFragmentManager, "ForemAppDialogFragment")
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
