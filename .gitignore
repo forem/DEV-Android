@@ -48,6 +48,7 @@ captures/
 .idea/**/misc.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/assetWizardSettings.xml
 .idea/libraries
 .idea/caches
 .idea/caches/build_file_checksums.ser
@@ -120,3 +121,7 @@ google-service-account-user.json
 fastlane/README.md
 fastlane/metadata/
 fastlane/*.xml
+
+# Extra
+*.DS_Store
+

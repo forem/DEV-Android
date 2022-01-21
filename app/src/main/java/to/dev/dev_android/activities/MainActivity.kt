@@ -39,6 +39,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         handleIntent(intent)
         PushNotifications.start(applicationContext, BuildConfig.pusherInstanceId)
         PushNotifications.addDeviceInterest("broadcast")
+
+        binding.showPopupImageView.setOnClickListener {
+            showForemAppAlert()
+        }
+
+        binding.openForemImageView.setOnClickListener {
+            val url = binding.webView.url
+            ForemAppDialog.openForemApp(this, url)
+        }
     }
 
     override fun onResume() {
@@ -50,8 +59,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
                     binding.webView.loadUrl(targetUrl)
                 }
             } catch (e: Exception) {
-                Log.e(LOG_TAG, e.message)
+                Log.e(LOG_TAG, "${e.message}")
             }
+        }
+
+        if (ForemAppDialog.isForemAppAlreadyInstalled(this)) {
+            binding.openForemImageView.visibility = View.VISIBLE
+        } else {
+            binding.openForemImageView.visibility = View.GONE
         }
 
         super.onResume()
@@ -107,10 +122,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
             mainActivityScope
         ) {
             binding.splash.visibility = View.GONE
+            binding.webView.visibility = View.VISIBLE
+            binding.bottomLayout.visibility = View.VISIBLE
+            showForemAppAlert()
         }
         binding.webView.webViewClient = webViewClient
         webViewBridge.webViewClient = webViewClient
         binding.webView.webChromeClient = CustomWebChromeClient(BuildConfig.baseUrl, this)
+    }
+
+    private fun showForemAppAlert() {
+        val url: String = binding.webView.url ?: ""
+        ForemAppDialog.newInstance(url).show(
+            supportFragmentManager,
+            "ForemAppDialogFragment"
+        )
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
