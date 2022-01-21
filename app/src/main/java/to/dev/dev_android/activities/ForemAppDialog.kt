@@ -81,7 +81,7 @@ class ForemAppDialog : DialogFragment() {
             downloadOpenForemAppImageView.setImageDrawable(
                 ContextCompat.getDrawable(
                     this.requireContext(),
-                    R.drawable.ic_outline_explore_24
+                    R.drawable.ic_compass
                 )
             )
             descriptionTextView.text = getString(R.string.forem_app_dialog_description_if_installed)

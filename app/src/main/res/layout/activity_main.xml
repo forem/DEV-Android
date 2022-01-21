@@ -43,7 +43,7 @@
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:padding="8dp"
-                    android:src="@drawable/ic_outline_description_24"
+                    android:src="@drawable/ic_news"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/open_forem_image_view"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:padding="8dp"
-                    android:src="@drawable/ic_outline_explore_24"
+                    android:src="@drawable/ic_compass"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
