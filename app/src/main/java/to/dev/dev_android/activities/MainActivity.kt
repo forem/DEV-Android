@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
-import android.widget.Toast
 import com.pusher.pushnotifications.PushNotifications
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -40,6 +39,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         handleIntent(intent)
         PushNotifications.start(applicationContext, BuildConfig.pusherInstanceId)
         PushNotifications.addDeviceInterest("broadcast")
+
+        binding.showPopupImageView.setOnClickListener {
+            showForemAppAlert()
+        }
+
+        binding.openForemImageView.setOnClickListener {
+            val app = packageManager.getLaunchIntentForPackage(ForemAppDialog.PACKAGE_NAME)
+            startActivity(app)
+        }
     }
 
     override fun onResume() {
@@ -51,8 +59,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
                     binding.webView.loadUrl(targetUrl)
                 }
             } catch (e: Exception) {
-                Log.e(LOG_TAG, e.message)
+                Log.e(LOG_TAG, "${e.message}")
             }
+        }
+
+        if (ForemAppDialog.isForemAppAlreadyInstalled(this)) {
+            binding.openForemImageView.visibility = View.VISIBLE
+        } else {
+            binding.openForemImageView.visibility = View.GONE
         }
 
         super.onResume()
@@ -108,6 +122,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
             mainActivityScope
         ) {
             binding.splash.visibility = View.GONE
+            binding.webView.visibility = View.VISIBLE
+            binding.bottomLayout.visibility = View.VISIBLE
             showForemAppAlert()
         }
         binding.webView.webViewClient = webViewClient
