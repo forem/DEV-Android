@@ -45,8 +45,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
         }
 
         binding.openForemImageView.setOnClickListener {
-            val app = packageManager.getLaunchIntentForPackage(ForemAppDialog.PACKAGE_NAME)
-            startActivity(app)
+            val url = binding.webView.url
+            ForemAppDialog.openForemApp(this, url)
         }
     }
 
@@ -132,7 +132,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), CustomWebChromeClient.
     }
 
     private fun showForemAppAlert() {
-        ForemAppDialog().show(supportFragmentManager, "ForemAppDialogFragment")
+        val url: String = binding.webView.url ?: ""
+        ForemAppDialog.newInstance(url).show(
+            supportFragmentManager,
+            "ForemAppDialogFragment"
+        )
     }
 
     private fun restoreState(savedInstanceState: Bundle) {

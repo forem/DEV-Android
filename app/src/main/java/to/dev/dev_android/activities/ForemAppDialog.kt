@@ -20,6 +20,15 @@ class ForemAppDialog : DialogFragment() {
 
     companion object {
         const val PACKAGE_NAME = "com.forem.android"
+        private const val FOREM_URL = "ForemAppDialog.url"
+
+        fun newInstance(url: String): ForemAppDialog {
+            val foremAppDialog = ForemAppDialog()
+            val args = Bundle()
+            args.putString(FOREM_URL, url)
+            foremAppDialog.arguments = args
+            return foremAppDialog
+        }
 
         fun isForemAppAlreadyInstalled(activity: Activity?): Boolean {
             return try {
@@ -29,7 +38,18 @@ class ForemAppDialog : DialogFragment() {
                 false
             }
         }
+
+        fun openForemApp(activity: Activity?, url: String?) {
+            val packageManager: PackageManager? = activity?.packageManager
+            val app = packageManager?.getLaunchIntentForPackage(PACKAGE_NAME)
+            if (!url.isNullOrEmpty()) {
+                app?.putExtra(Intent.EXTRA_TEXT, url)
+            }
+            activity?.startActivity(app)
+        }
     }
+
+    lateinit var url: String
 
     override fun onStart() {
         super.onStart()
@@ -42,6 +62,9 @@ class ForemAppDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val args = arguments
+        url = args?.getString(FOREM_URL) ?: ""
+
         val view = inflater.inflate(R.layout.forem_app_dialog, container, false)
         if (dialog != null && dialog!!.window != null) {
             dialog!!.window?.setBackgroundDrawableResource(R.drawable.forem_dialog_fragment_background)
@@ -83,9 +106,7 @@ class ForemAppDialog : DialogFragment() {
 
     private fun openForemAppLink() {
         if (isForemAppAlreadyInstalled(activity)) {
-            val packageManager: PackageManager? = activity?.packageManager
-            val app = packageManager?.getLaunchIntentForPackage(PACKAGE_NAME)
-            activity?.startActivity(app)
+            openForemApp(activity, url)
         } else {
             try {
                 // Opens Forem app in Play Store, if Play Store app is available.
