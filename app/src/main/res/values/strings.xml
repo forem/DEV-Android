@@ -4,5 +4,7 @@
     <string name="playback_channel_description">Podcast Player</string>
     <string name="forem_app_dialog_title">Find DEV in the Forem app</string>
     <string name="forem_app_dialog_description">Get Forem for android in the Play Store. Your DEV profile info will be carried over so you can pick up where you left off!</string>
+    <string name="forem_app_dialog_description_if_installed">Open Forem app now. Your DEV profile info will be carried over so you can pick up where you left off!</string>
     <string name="download_forem_app">Download Forem App</string>
+    <string name="open_forem_app">Open Forem App</string>
 </resources>

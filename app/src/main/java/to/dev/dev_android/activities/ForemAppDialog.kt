@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import android.content.pm.PackageManager
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import to.dev.dev_android.R
 
 class ForemAppDialog : DialogFragment() {
@@ -43,7 +46,35 @@ class ForemAppDialog : DialogFragment() {
         if (dialog != null && dialog!!.window != null) {
             dialog!!.window?.setBackgroundDrawableResource(R.drawable.forem_dialog_fragment_background)
         }
+        val downloadInstallForemAppTextView =
+            view.findViewById<TextView>(R.id.download_install_forem_app_text_view)
+        val downloadOpenForemAppImageView =
+            view.findViewById<ImageView>(R.id.download_open_forem_image_view)
+        val descriptionTextView =
+            view.findViewById<TextView>(R.id.forem_app_dialog_description_text_view)
+
+        if (isForemAppAlreadyInstalled(activity)) {
+            downloadInstallForemAppTextView.text = getString(R.string.open_forem_app)
+            downloadOpenForemAppImageView.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this.requireContext(),
+                    R.drawable.ic_outline_explore_24
+                )
+            )
+            descriptionTextView.text = getString(R.string.forem_app_dialog_description_if_installed)
+        } else {
+            downloadInstallForemAppTextView.text = getString(R.string.download_forem_app)
+            downloadOpenForemAppImageView.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this.requireContext(),
+                    R.drawable.ic_baseline_arrow_downward_24
+                )
+            )
+            descriptionTextView.text = getString(R.string.forem_app_dialog_description)
+        }
+
         val downloadLayout = view.findViewById<ConstraintLayout>(R.id.download_forem_app_layout)
+
         downloadLayout.setOnClickListener {
             openForemAppLink()
         }
